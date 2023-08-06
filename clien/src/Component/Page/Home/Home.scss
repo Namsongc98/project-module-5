@@ -1,0 +1,63 @@
+.container-main {
+  .wp-title {
+    .wp-title-left {
+      .wp-list-title {
+        .item-poin {
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          background-color: #888888;
+        }
+      }
+      .landing-hover-btn {
+        border-radius: 10px;
+        background-image: linear-gradient(to right, #22d12a, #2bb673);
+        &:hover {
+          -webkit-box-shadow: 4px 9px 10px 0px rgba(0, 0, 0, 0.41);
+          box-shadow: 4px 9px 10px 0px rgba(0, 0, 0, 0.41);
+        }
+      }
+    }
+  
+    .bg-colorLandingBlue {
+      --tw-bg-opacity: 1;
+      background-color: rgb(105 138 255 / var(--tw-bg-opacity));
+    }
+    .bg-colorLandingAqua {
+      --tw-bg-opacity: 1;
+      background-color: rgb(125 247 255 / var(--tw-bg-opacity));
+    }
+  }
+  .wp-contact {
+    .btn-web {
+      border-radius: 8px;
+      border: 2px solid black;
+      text-align: center;
+      line-height: 50px;
+    }
+  }
+  .line-midleware {
+    border: 1px solid #e5e7eb;
+  }
+  .bg-colorLandingBlue {
+    --tw-bg-opacity: 1;
+    background-color: rgb(105 138 255 / var(--tw-bg-opacity));
+  }
+  .bg-colorLandingAqua {
+    --tw-bg-opacity: 1;
+    background-color: rgb(125 247 255 / var(--tw-bg-opacity));
+  }
+  .bg-colorLandingEmerald {
+    --tw-bg-opacity: 1;
+    background-color: rgb(125 255 208 / var(--tw-bg-opacity));
+  }
+  .landing-hover-btn {
+   
+    border-radius: 5px;
+    background-image: linear-gradient(to right, #22d12a, #2bb673);
+    &:hover {
+      -webkit-box-shadow: 4px 9px 10px 0px rgba(0, 0, 0, 0.41);
+      box-shadow: 4px 9px 10px 0px rgba(0, 0, 0, 0.41);
+    }
+  }
+}

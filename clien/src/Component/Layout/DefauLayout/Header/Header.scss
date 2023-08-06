@@ -1,0 +1,59 @@
+// .active {
+//   color: #4385f3;
+// }
+
+.landing-hover-btn {
+  border-radius: 10px;
+  background-image: linear-gradient(to right, #22d12a, #2bb673);
+  &:hover {
+    -webkit-box-shadow: 4px 9px 10px 0px rgba(0, 0, 0, 0.41);
+    box-shadow: 4px 9px 10px 0px rgba(0, 0, 0, 0.41);
+  }
+}
+
+.popupProfile {
+  .activeProfile {
+    animation: popup 0.2s linear;
+    padding: 4px 0;
+  }
+  .activeProfile::before {
+    content: "";
+    position: absolute;
+    background-color: #22c55e;
+    top: -7px;
+    left: 12px;
+    width: 14px;
+    height: 14px;
+    z-index: -10;
+    transform: rotate(45deg);
+  }
+  @keyframes popup {
+    from {
+      visibility: hidden;
+      height: 0;
+      opacity: 0.5;
+    }
+    to {
+      height: 80px;
+      opacity: 1;
+    }
+  }
+
+  .inactiveProfile {
+    height: 0;
+    visibility: hidden;
+    animation: popupClose 0.2s linear;
+  }
+  @keyframes popupClose {
+    from {
+      height: 80px;
+      opacity: 1;
+      visibility: hidden;
+    }
+    to {
+      height: 0;
+      opacity: 0;
+      visibility: visible;
+    }
+  }
+}

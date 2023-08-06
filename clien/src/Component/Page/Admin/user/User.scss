@@ -1,0 +1,80 @@
+.wp-search {
+  width: 250px;
+  height: 35px;
+  border: 1px solid rgb(220, 219, 219);
+  background-color: rgb(236, 234, 234);
+  border-radius: 15px;
+  display: flex;
+  padding: 5px;
+  justify-content: space-around;
+  align-items: center;
+  .input-search {
+    background-color: rgb(236, 234, 234);
+    outline: none;
+    border-right: 1px solid rgb(189, 188, 188);
+  }
+}
+table {
+  width: 100%;
+  // max-height:500px ;
+  thead {
+    background-color: #f9fafb;
+    opacity: 0.7;
+    tr {
+      border-collapse: collapse;
+      border-bottom: 1px solid #dddedf;
+      th {
+        text-align: start;
+        padding: 10px;
+        font-size: small;
+      }
+    }
+  }
+  tbody {
+    tr {
+      border-collapse: collapse;
+      border-bottom: 1px solid #dddedf;
+      td {
+        padding: 10px;
+        font-size: small;
+        span {
+          opacity: 0.7;
+          font-size: 14px;
+          font-weight: 500;
+        }
+        p{
+          text-align: center;
+          line-height: 20px;
+          border-radius: 5px;
+          width: 60px;
+          height: 20px;
+       
+          color: white;
+          font-size: smaller;
+          font-weight: 600;
+          cursor: pointer;
+          
+          &:hover{
+            opacity: 0.7;
+          }
+        }
+        div{
+
+        }
+      }
+      &:hover{
+        background-color: #f9fafb;
+        
+      }
+    }
+  }
+}
+.pagination-user{
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+.footer-admin{
+  height:100px ;
+  background-color: aqua;
+}

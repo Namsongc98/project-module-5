@@ -1,0 +1,133 @@
+.container-detail-profile {
+  width: 100%;
+  .wp-profile {
+    display: flex;
+    gap: 15px;
+    .wp-profile-left {
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      border-radius: 8px;
+      width: 30%;
+      background-color: white;
+      padding: 50px;
+      .wp-avatar {
+        margin: 0 auto;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        .avatar-user {
+          height: 100px;
+          height: 100px;
+          object-fit: cover;
+        }
+      }
+      .wp-text-profile {
+        text-align: center;
+        margin: 0 auto;
+        p {
+          padding-top: 20px;
+          opacity: 70;
+        }
+        .profile-name {
+          font-size: 1.6rem;
+          font-weight: 700;
+        }
+        .profile-email {
+          font-size: 1.2rem;
+        }
+      }
+    }
+    .wp-profile-right {
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      border-radius: 8px;
+      padding: 10px;
+      width: 70%;
+      background-color: white;
+      .table-profile {
+        width: 100%;
+        .tbody-profile {
+          .tr-profile {
+            opacity: 0.7;
+            .td-profile {
+              font-weight: 500;
+              font-size: 1.1rem;
+              padding: 20px 10px;
+              width: 25%;
+            }
+          }
+        }
+      }
+    }
+  }
+  .container-detail-learn {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    gap: 30px;
+    .wp-beginner {
+      padding: 10px;
+      width: 35%;
+      background-color: white;
+      border-radius: 10px;
+      .wp-lever {
+        padding: 30px;
+        .wp-image-lever {
+          width: 80px;
+          height: 80px;
+          margin: 0 auto;
+          overflow: hidden;
+          border-radius: 50%;
+          .img-lever {
+            object-fit: cover;
+            width: 80px;
+            height: 80px;
+          }
+        }
+        .lever-title {
+          text-align: center;
+          margin-top: 10px;
+          font-size: 20px;
+          font-weight: 600;
+          opacity: 0.8;
+        }
+      }
+      .wp-list-topic {
+        .wp-item-topic {
+          border-top: 1px solid #dddedf;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 8px 0;
+          .wp-title-topic {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            .wp-img-topic {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+              overflow: hidden;
+              .img-topic {
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+              }
+            }
+            .wp-text-topic {
+              .name-topic {
+                font-size: 18px;
+                font-weight: 600;
+                opacity: 0.8;
+              }
+              .target-topic {
+                font-size: 1rem;
+                font-weight: 500;
+                opacity: 0.6;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,163 @@
+.btn-popup-topic {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #626ed4;
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.popup-topic {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  .form-container-topic {
+    display: flex;
+    gap: 30px;
+    border-radius: 10px;
+    .wp-form-left {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 45%;
+      .wp-input {
+        .form-label {
+          font-weight: 600;
+          font-size: 0.9rem;
+        }
+        .form-input {
+          display: block;
+          width: 80%;
+          height: 25px;
+          border: 1px solid #cfd3d7;
+          padding: 2px;
+          border-radius: 2px;
+          margin-top: 4px;
+          outline: none;
+          &:hover {
+            border: 1px solid #5d5e5f;
+          }
+          &:focus {
+            border: 1px solid #4385f3;
+            box-shadow: 0px 0px 2px #4385f3;
+          }
+        }
+        .form-label-select {
+          height: 50px;
+          font-weight: 500;
+          position: relative;
+          .form-select {
+            margin-top: 5px;
+            height: 25px;
+            width: 60%;
+            background-color: #4385f3;
+            outline: none;
+            color: white;
+            cursor: pointer;
+            option {
+              display: block;
+              outline: none;
+              position: absolute;
+              font-weight: 400;
+            }
+          }
+        }
+      }
+      .btn-save {
+        margin: 0 auto;
+        width: 100px;
+        padding: 5px;
+        background-color: #4385f3;
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        border-radius: 50px;
+        color: white;
+        &:hover {
+          opacity: 0.8;
+        }
+        .ring-loading {
+          width: 20px;
+          height: 20px;
+          opacity: 0.8;
+          border-radius: 50%;
+          border: 3px solid white;
+          margin: 0 auto;
+          border-right: 3px solid transparent;
+          border-left: 3px solid transparent;
+          animation: spinner 1s infinite linear;
+          @keyframes spinner {
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        }
+      }
+      .btn-Cancel {
+        margin: 0 auto;
+        width: 100px;
+        padding: 5px;
+        background-color: #cfd3d7;
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        border-radius: 50px;
+        color: #5d5e5f;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+    .wp-right {
+      margin: 0 auto;
+      .wp-avatar {
+        width: 180px;
+        height: 180px;
+        border: 1px solid rgb(204, 203, 203);
+        border-radius: 5px;
+        margin-bottom: 20px;
+        padding: 3px;
+        .avatar-view {
+          width: 170px;
+        }
+      }
+      .label-avatar {
+        margin: 0 auto;
+        display: block;
+        height: 30px;
+        border-radius: 5px;
+        background-color: #4385f3;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+          background-color: #5d94f3;
+        }
+        span {
+          color: white;
+          font-size: large;
+          font-weight: 600;
+          line-height: 30px;
+        }
+        input {
+          display: none;
+        }
+      }
+    }
+  }
+}

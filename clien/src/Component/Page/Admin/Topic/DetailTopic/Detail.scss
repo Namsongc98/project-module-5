@@ -1,0 +1,44 @@
+.wp-table {
+  min-width: 950px;
+  background-color: white;
+  max-height: 1000px;
+  overflow-x: scroll;
+  border-radius: 5px;
+  min-height: 250px;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #299cdb;
+    border-radius: 10px;
+  }
+  .detail-table {
+    // width: 1600px;
+    border-collapse: collapse;
+    thead {
+      tr {
+        th {
+          font-weight: 500;
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+          background-color: #eff2f7;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td {
+          border-bottom: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+      }
+    }
+  }
+}

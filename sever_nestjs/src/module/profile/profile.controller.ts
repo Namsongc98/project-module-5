@@ -22,18 +22,16 @@ export class ProfileController {
     return await this.profileService.countProfile()
   }
 
-  // tìm kiếm người dùng theo tên
-  @Get("/search")
-  async search(@Query() name: { name: any }): Promise<any> {
-    const result = await this.profileService.searchName(name)
-    return result;
-  }
 
   @Get("users")
   async pagination(
     @Query("page", ParseIntPipe) page: number,
-    @Query("limit", ParseIntPipe) limit: number
+    @Query("limit", ParseIntPipe) limit: number,
+    @Query("email") email: string
   ): Promise<any> {
-    return await this.profileService.paginationUser(page, limit)
+    console.log(email)
+    console.log(page)
+    console.log(limit)
+    return await this.profileService.paginationUser(page, limit,email)
   }
 }

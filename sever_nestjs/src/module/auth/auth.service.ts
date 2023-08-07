@@ -4,7 +4,7 @@ import { authSignIn } from './TypeAuth/TypeAuth';
 import { UsersService } from '../users/users.service';
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { ProfileService } from '../profile/profile.service';
+
 @Injectable()
 export class AuthService {
   constructor(

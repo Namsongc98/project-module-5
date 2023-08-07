@@ -25,17 +25,23 @@ export class QuestionService {
             .getRawMany();
     }
 
-
+    async paginatequestion(page, limit): Promise<any> {
+        console.log(page, limit)
+    }
 
     // lấy câu hỏi theo id
     async selectQuestion(id: number): Promise<TypeTopicQuestion> {
-        const topic = await this.topicRepository.findOneBy({ id })
-        const question = await this.questionRepository.findBy({ topicId: id })
-        const count = await this.questionRepository.count({ where: { topicId: id } })
-        return {
-            topic,
-            question,
-            count
+        try {
+            const topic = await this.topicRepository.findOneBy({ id })
+            const question = await this.questionRepository.findBy({ topicId: id })
+            const count = await this.questionRepository.count({ where: { topicId: id } })
+            return {
+                topic,
+                question,
+                count
+            }
+        } catch (error) {
+            throw new BadRequestException(error)
         }
     }
 
@@ -57,7 +63,7 @@ export class QuestionService {
         }
     }
 
-    // sủa câu hỏi
+    // sửa câu hỏi
     async updateQuestion(detailquestion: TypeQuestion) {
         try {
             if (!detailquestion.idQuestion) throw new NotFoundException("Không tìm thấy câu hỏi")
@@ -93,6 +99,4 @@ export class QuestionService {
             throw new BadRequestException(error)
         }
     }
-
-
 }

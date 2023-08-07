@@ -8,7 +8,7 @@ export class QuestionController {
     constructor(private serviceQuesion: QuestionService) { }
 
     @Get()
-    async selectAll(): Promise<any> {
+    selectAll() {
         return this.serviceQuesion.selectAll()
     }
 
@@ -16,6 +16,16 @@ export class QuestionController {
     async selectQuestion(@Param("id", ParseIntPipe) id: number): Promise<any> {
         return await this.serviceQuesion.selectQuestion(id)
     }
+
+    @Get()
+    selectPage(
+        @Query("page", ParseIntPipe) page: number,
+        @Query("limit", ParseIntPipe) limit: number
+    ) {
+        console.log(page, limit)
+        return this.serviceQuesion.paginatequestion(page, limit)
+    }
+
 
     @Post("postquestion")
     async insertQuestion(@Body() detailquestion: TypeQuestion): Promise<any> {
@@ -33,7 +43,7 @@ export class QuestionController {
     }
 
     @Get("count")
-    async countQuestion():Promise<number>{
-            return this.serviceQuesion.countQuestion()
+    async countQuestion(): Promise<number> {
+        return this.serviceQuesion.countQuestion()
     }
 }

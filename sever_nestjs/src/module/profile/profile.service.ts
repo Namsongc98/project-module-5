@@ -39,27 +39,28 @@ export class ProfileService {
         }
     }
 
-    // search tên
-    async searchName(search: { name: string }): Promise<any> {
-        const { name } = search
-        const result = await this.profileRepository
-            .createQueryBuilder("profile")
-            .select(['email', "status", 'avatar', 'firstName', "lastName",])
-            .innerJoin("profile.user", "user")
-            .where("profile.firstName like :name OR profile.lastName like :name ", { name: `%${name}%` })
-            .getRawMany()
-        return result
-    }
 
-    async paginationUser(page, limit): Promise<any> {
-        const result = await this.profileRepository
-            .createQueryBuilder("profile")
-            .select(["avatar", "firstName", "lastName", "status", "email"])
-            .leftJoin("profile.user", "user")
-            .where("user.role != :role", { role: "admin" })
-            .limit(limit)
-            .offset(page)
-            .getRawMany()
-        return result
+    // xử lí phân trang 
+    async paginationUser(page, limit, email): Promise<any> {
+        if (email) {
+            const result = await this.profileRepository
+                .query(`select u.*, p.firstName, p.lastName, p.avatar 
+                        from modules_5.user as u  
+                        left join modules_5.profile as p on u.id = p.userId 
+                        where not role = 'admin' and u.email like  '%${email}%'
+                        limit ${limit}
+                        offset ${page};`)
+
+            return result
+        } else {
+            const result = await this.profileRepository
+                .query(`select u.*, p.firstName, p.lastName, p.avatar 
+                        from modules_5.user as u  
+                        left join modules_5.profile as p on u.id = p.userId 
+                        where not role = 'admin' 
+                        limit ${limit}    
+                        offset  ${page}; `)
+            return result
+        }
     }
 }

@@ -4,7 +4,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { createUserBody } from 'src/module/users/type/user';
@@ -26,15 +25,13 @@ export class UsersService {
         email: userDetail.email,
       },
     });
-
   }
 
   // 
   async findProfile(userDetail: createUserBody) {
     return await this.profileRepository.findOneBy({ userId: userDetail.id })
-
   }
-
+    
   // register 
   async createUser(userDetail: createUserBody) {
     try {
@@ -44,6 +41,7 @@ export class UsersService {
         },
       });
       if (isEmail) throw new BadRequestException('Email đã tồn tại');
+
       const hashedPassword = await bcrypt.hash(userDetail.password, 10);
       userDetail.password = hashedPassword
       this.userRepository.save(userDetail);

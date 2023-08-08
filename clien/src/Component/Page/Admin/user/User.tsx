@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { AiFillLock, AiFillProfile, AiFillStar, AiFillUnlock } from 'react-icons/ai'
 import "./User.scss"
 import { axiosPrivate } from '../../../../config/ConfigApi'
-import { useSelector } from 'react-redux'
 import { IDataUser } from '../../../../type/UserModule'
 import 'tippy.js/dist/tippy.css';
 import { BsSearch } from 'react-icons/bs'
@@ -10,81 +9,66 @@ import { FaUsers } from 'react-icons/fa'
 import { BiSolidUser } from 'react-icons/bi'
 import { TbPointFilled } from "react-icons/tb"
 import { useNavigate } from 'react-router-dom'
-import { Pagination } from 'antd'
+import ReactPaginate from 'react-paginate'
+import { useDebounce } from '../../../../hooks'
 
 const ManagerUser: React.FC = () => {
   const [dataUser, setDataUser] = useState<IDataUser>([])
-  const [name, setName] = useState<string | number>("")
+  const [email, setEmail] = useState<string>("")
   const [countUser, setCountUser] = useState<number>()
   const [countProfile, setCountProfile] = useState<number>()
   const [countEvaluate, setCountEvaluate] = useState<number>()
   const navigate = useNavigate()
 
-  //data người dùng
-  const getUser = async () => {
-    try {
-      const response = await axiosPrivate.get("/users")
-      setDataUser(response.data)
-      return response.data
-    } catch (error) {
-      throw new Error(error)
-    }
-  }
-  useEffect(() => {
-    getUser()
-  }, [])
+  const deBounce: string = useDebounce(email, 500)
 
-  const limit = 10
+  const limit = 5
+  const pageCount = Math.ceil(countUser! / limit)
   const paginationUser = async () => {
     try {
-      const response = await axiosPrivate.get(`/profile/users?page=1&limit=${limit}`)
-      console.log(response)
+      const url = `/profile/users?page=0&limit=${limit}&email=${encodeURIComponent(deBounce)}`
+      const response = await axiosPrivate.get(url)
+      setDataUser(response.data)
     } catch (error) {
       throw new Error(error)
     }
   }
-
   useEffect(() => {
     paginationUser()
-  }, [])
+  }, [deBounce])
 
-  // search user
-  const getSearch = async () => {
+  const handlePagination = async ({ selected }: any) => {
+    if (selected === 0) return paginationUser()
+    const skip = selected * limit
     try {
-      const response = await axiosPrivate.get(`/profile/search?name=${encodeURIComponent(name)}`)
+      const url = `/profile/users?page=${skip}&limit=${limit}&email=${encodeURIComponent(email)}`
+      const response = await axiosPrivate.get(url)
       setDataUser(response.data)
-      return response.data
     } catch (error) {
       throw new Error(error)
     }
   }
-  useEffect(() => {
-    if (!name) return
-    getSearch()
-  }, [name])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const changeValue = e.target.value
     if (!changeValue.startsWith(" ")) {
-      setName(changeValue)
+      setEmail(changeValue)
     }
   }
 
   const handleDelete = async (idUser: string) => {
     try {
       await axiosPrivate.delete(`users/delete/${idUser}`)
-      getUser()
+      paginationUser()
     } catch (error) {
-      console.log(error)
       throw new Error(error)
     }
-
   }
   // khóa người dùng
   const handleLock = async (idUser: string) => {
     try {
       await axiosPrivate.put(`users/putlock/${idUser}`)
-      getUser()
+      paginationUser()
     } catch (error) {
       throw new Error(error)
     }
@@ -95,7 +79,7 @@ const ManagerUser: React.FC = () => {
   const handleUnlock = async (idUser: string) => {
     try {
       await axiosPrivate.put(`users/putunlock/${idUser}`)
-      getUser()
+      paginationUser()
     } catch (error) {
       throw new Error(error)
     }
@@ -128,6 +112,7 @@ const ManagerUser: React.FC = () => {
     handleCountEvaluate()
   }, [])
 
+  // đếm profile
   const handleCountProfile = async () => {
     try {
       const response = await axiosPrivate.get("profile/count")
@@ -143,18 +128,12 @@ const ManagerUser: React.FC = () => {
   const handelDetail = (idUser: string) => {
     navigate(`/detailuser/${idUser}`)
   }
-
-  const handlePagination = () => {
-
-  }
-
-
   return (
     <div className=''>
       <div className=" h-15 flex justify-between items-center ">
         <h1 className="font-semibold text-2xl m-0  text-[#299cd9]">Quản lí học viên</h1>
         <div className="wp-search">
-          <input type="text" placeholder='Nhập tên' value={name} onChange={handleChange} className='input-search' />
+          <input type="text" placeholder='Nhập email' value={email} onChange={handleChange} className='input-search' />
           <BsSearch className="text-[17px] text-white" />
         </div>
       </div>
@@ -200,71 +179,84 @@ const ManagerUser: React.FC = () => {
         </div>
 
       </div>
-      <div className="bg-white rounded-md w-full  mt-5 p-5 shadow-xl">
-        <table className=''>
-          <thead className=' '>
-            <tr className=' h-5 '>
-              <th className='w-[130px]'>
-                Ảnh đại diện
-              </th>
-              <th>
-                Họ và tên
-              </th>
-              <th>
-                Email
-              </th>
-              <th>
-                Trạng thái
-              </th>
-              <th className='w-[150px]'>
-                Chi tiết
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {dataUser?.map((user) => (
-              <tr key={user.id}>
-                <td className='flex'>
-                  {user?.avatar ?
-                    <div className="w-8 h-8 mr-3 rounded-full overflow-hidden object-cover" >
-                      <img src={user?.avatar} alt="" className='h-8 w-8' />
-                    </div> : "Đang cập nhật"
-                  }
-                </td>
-                <td>
-                  {user.firstName || user.lastName ? <div><span>{user.firstName}</span> <span>{user.lastName}</span></div> : "Đang cập nhật"}
-                </td>
-
-                <td >
-                  {user?.email}
-                </td>
-                <td className=''>
-                  {user.status ?
-                    <div className="flex items-center gap-1">
-                      <TbPointFilled className="text-green-500" />
-                      <span className='text-sm font-semibold' >Đang hoạt động</span>
-                    </div> :
-                    <div className="flex items-center gap-1">
-                      <TbPointFilled className="text-red-500" />
-                      <span className='text-sm font-semibold' >Đã khóa</span>
-                    </div>
-                  }
-                </td>
-                <td className='flex gap-2 items-center'>
-                  <p className='bg-blue-600' onClick={() => handelDetail(user.id)}>Chi tiết</p>
-                  <p className='bg-red-600' onClick={() => handleDelete(user.id)}>xóa</p>
-                  {user?.status ?
-                    <AiFillUnlock className="text-lg text-blue-600" onClick={() => handleLock(user.id)} />
-                    :
-                    <AiFillLock className="text-lg text-red-600" onClick={() => handleUnlock(user.id)} />
-                  }
-                </td>
+      <div className="bg-white rounded-md w-full  mt-5 p-5 shadow-xl ">
+        <div className="min-h-[380px]">
+          <table className=''>
+            <thead className=' '>
+              <tr className=' h-5 '>
+                <th className='w-[130px]'>
+                  Ảnh đại diện
+                </th>
+                <th>
+                  Họ và tên
+                </th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Trạng thái
+                </th>
+                <th className='w-[150px]'>
+                  Chi tiết
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {dataUser?.map((user, index) => (
+                <tr key={index}>
+
+                  <td className='flex'>
+                    {user?.avatar ?
+                      <div className="w-8 h-8 mr-3 rounded-full overflow-hidden object-cover" >
+                        <img src={user?.avatar} alt="" className='h-8 w-8' />
+                      </div> : "Đang cập nhật"
+                    }
+                  </td>
+                  <td>
+                    {user.firstName || user.lastName ? <div><span>{user.firstName}</span> <span>{user.lastName}</span></div> : "Đang cập nhật"}
+                  </td>
+
+                  <td >
+                    {user?.email}
+                  </td>
+                  <td className=''>
+                    {user.status ?
+                      <div className="flex items-center gap-1">
+                        <TbPointFilled className="text-green-500" />
+                        <span className='text-sm font-semibold' >Đang hoạt động</span>
+                      </div> :
+                      <div className="flex items-center gap-1">
+                        <TbPointFilled className="text-red-500" />
+                        <span className='text-sm font-semibold' >Đã khóa</span>
+                      </div>
+                    }
+                  </td>
+                  <td className='flex gap-2 items-center'>
+                    <p className='bg-blue-600' onClick={() => handelDetail(user.id)}>Chi tiết</p>
+                    <p className='bg-red-600' onClick={() => handleDelete(user.id)}>xóa</p>
+                    {user?.status ?
+                      <AiFillUnlock className="text-lg text-blue-600" onClick={() => handleLock(user.id)} />
+                      :
+                      <AiFillLock className="text-lg text-red-600" onClick={() => handleUnlock(user.id)} />
+                    }
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <div className="pagination-user">
-          <Pagination defaultCurrent={1} total={50} onChange={() => handlePagination} />
+          <ReactPaginate
+            previousLabel={"<"}
+            nextLabel={">"}
+            pageCount={pageCount}
+            onPageChange={handlePagination}
+            containerClassName={"paginationBttns"}
+            previousLinkClassName={"previousBttn"}
+            nextLinkClassName={"nextBttn"}
+            disabledClassName={"paginationDisabled"}
+            activeClassName={"paginationActive"}
+          />
         </div>
       </div>
     </div>

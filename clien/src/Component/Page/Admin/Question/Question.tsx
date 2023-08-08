@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { BsSearch } from 'react-icons/bs'
-import  { axiosPrivate } from '../../../../config/ConfigApi';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDataQuestion, setDataQuestion } from '../../../../Reducer/Slice/Question';
-import { IQuestion } from '../../../../type/Topic';
+import { axiosPrivate } from '../../../../config/ConfigApi';
+import { useDispatch } from 'react-redux';
+import { setDataQuestion } from '../../../../Reducer/Slice/Question';
 import { ToastContainer, toast } from 'react-toastify'
 import ReactPaginate from "react-paginate";
 import "./Question.scss"
@@ -21,7 +20,6 @@ type Question = {
 }
 
 const Question: React.FC = () => {
-
     const [dataQuesion, setDataQuesion] = useState<Array<Question>>([])
     const [searchTopic, setSearchTopic] = useState("")
     const [count, setcount] = useState<number>()
@@ -31,7 +29,7 @@ const Question: React.FC = () => {
     const displayQuesion = dataQuesion?.slice(pagesVisited, pagesVisited + usersPerPage)
     const dispatch = useDispatch()
 
-    // get question 
+  //  get question 
     const getAllQuestion = async () => {
         try {
             const response = await axiosPrivate.get("/question");
@@ -45,6 +43,21 @@ const Question: React.FC = () => {
     useEffect(() => {
         getAllQuestion()
     }, [])
+
+
+    // count 
+    const countQuestion = async () => {
+        try {
+            const response = await axiosPrivate.get("/question/count")
+            setcount(response.data)
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    useEffect(() => {
+        countQuestion()
+    }, [dataQuesion])
 
     // delete question
     const handleDelete = async (idTopic: number) => {
@@ -83,19 +96,8 @@ const Question: React.FC = () => {
         handleSearch()
     }, [searchTopic])
 
-    const countQuestion = async () => {
-        try {
-            const response = await axiosPrivate.get("/question/count")
-            setcount(response.data)
-        } catch (error) {
-            throw new Error(error)
-        }
 
-    }
 
-    useEffect(() => {
-        countQuestion()
-    }, [dataQuesion])
     return (
         <main>
             <ToastContainer className="text-xs font-medium" />
@@ -199,8 +201,8 @@ const Question: React.FC = () => {
 
                     </div>
                     <ReactPaginate
-                        previousLabel={"Previous"}
-                        nextLabel={"Next"}
+                        previousLabel={"<"}
+                        nextLabel={">"}
                         pageCount={pageCount}
                         onPageChange={changePage}
                         containerClassName={"paginationBttns"}

@@ -3,18 +3,16 @@ import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 import {axiosPrivate} from '../../../../../config/ConfigApi'
 import { useSelector } from 'react-redux'
-import { getDataQuestion, setDataQuestion } from '../../../../../Reducer/Slice/Question'
+import { getDataQuestion } from '../../../../../Reducer/Slice/Question'
 import { IQuestion } from '../../../../../type/Topic'
 
 interface IPropPopup {
     isToggle: Dispatch<React.SetStateAction<any>>
     idBeginer: number | undefined,
-   
 }
 const FromEdit: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
     const dataQuestion: Array<IQuestion> = useSelector(getDataQuestion)
     const questionItem: IQuestion | undefined = dataQuestion.find((question) => question.id === idBeginer)
-    console.log(questionItem)
     const [question, setQuestion] = useState(questionItem?.question)
     const [optionA, setOptionA] = useState(questionItem?.option_a)
     const [optionB, setOptionB] = useState(questionItem?.option_b)

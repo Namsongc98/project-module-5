@@ -6,9 +6,7 @@ function DefaultPublic({ children }: { children: any }): React.ReactNode {
   return (
     <div className='relative h-auto'>
       <Header />
-
-      {children}
-
+      {children}  
       <Footer />
     </div>
   )

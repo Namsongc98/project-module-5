@@ -39,7 +39,6 @@ export class ProfileService {
         }
     }
 
-
     // xử lí phân trang 
     async paginationUser(page, limit, email): Promise<any> {
         if (email) {

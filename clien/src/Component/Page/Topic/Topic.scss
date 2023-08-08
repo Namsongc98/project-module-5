@@ -1,4 +1,47 @@
-// .wp-card-topic{
-//     border: 1px solid gainsboro;
-//     border-radius: 10px;
-// }
+.isTopic {
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}
+.PopupTopic {
+  background-color: rgba(22, 9, 9, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .contenTopic {
+    background-color: white;
+    width: 520px;
+    padding: 36px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .wp-imgTopic {
+      width: 80px;
+      height: 80px;
+      overflow: hidden;
+      border-radius: 50%;
+      .imgTopic {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        -webkit-filter: grayscale(1);
+        filter: grayscale(1);
+      }
+    }
+    .btn-Topic {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4385f3;
+      color: white;
+      font-weight: 500;
+      border-radius: 5px;
+    }
+  }
+}

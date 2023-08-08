@@ -27,7 +27,6 @@ const AdminTopic: React.FC = () => {
   }, [])
 
 
-
   return (
     <div className='w-full'>
       {popup && <PostTopic propSetPopup={setPopup} />}

@@ -21,7 +21,8 @@ export class TopicService {
             throw new BadRequestException(error)
         }
     }
-    
+
+    // lấy dữ liệu begin
     async selectBeginner(): Promise<Topic[]> {
         try {
             const result = await this.topicRepository.find({
@@ -35,6 +36,7 @@ export class TopicService {
         }
     }
 
+    // lấy dữ liệu trung cấp
     async selectIntermediate(): Promise<Topic[]> {
         try {
             const result = await this.topicRepository.find({
@@ -47,6 +49,8 @@ export class TopicService {
             throw new Error(error)
         }
     }
+
+    //lấy dữ liệu cao cấp
     async selectAdvanced(): Promise<Topic[]> {
         try {
             const result = await this.topicRepository.find({
@@ -60,7 +64,7 @@ export class TopicService {
         }
     }
 
-    // get Chủ đề
+    // get all Chủ đề
     async selectAll(): Promise<Topic[]> {
         try {
             return await this.topicRepository.find()
@@ -108,6 +112,15 @@ export class TopicService {
                 .where("topic.name like :name", { name: `%${name}%` })
                 .getRawMany();
             return topic
+        } catch (error) {
+            throw new BadRequestException(error)
+        }
+    }
+
+    async updateStatus(idUser): Promise<any> {
+        try {
+            const result = this.topicRepository
+            console.log(result)
         } catch (error) {
             throw new BadRequestException(error)
         }

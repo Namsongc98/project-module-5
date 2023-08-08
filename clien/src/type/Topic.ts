@@ -4,7 +4,7 @@ type DataBeginner = {
   image: string;
   lever_topic: string;
   name: string;
-  status: number | null;
+  status: boolean;
   target: string;
 }[];
 

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import imgBig from "../../../../assets/img/imgBig.webp"
 import { NewUser } from '../../../../type/UserModule'
-import {axiosPublic} from '../../../../config/ConfigApi'
+import { axiosPublic } from '../../../../config/ConfigApi'
 import { setLogin } from '../../../../Reducer/Slice/UserSlice'
 import "../forn.scss"
 import { setProfile } from '../../../../Reducer/Slice/Profile'
@@ -36,8 +36,8 @@ const Login: React.FC = () => {
     if (!valiEmail) return showToastErrEmail()
     if (!valiPassword) return showToastValiPassword()
     const newUser: NewUser = {
-      email: email,
-      password: password,
+      email,
+      password,
     }
     try {
       const response = await axiosPublic.post("/auth/login", newUser);
@@ -53,6 +53,7 @@ const Login: React.FC = () => {
       throw new Error(error.response.data.message);
     }
   }
+
   useEffect(() => {
     if (typeof errLogin === "string")
       showToastErrData(errLogin)
@@ -64,8 +65,6 @@ const Login: React.FC = () => {
       position: toast.POSITION.TOP_RIGHT
     });
   }
-
-
 
   const showToastErrEmpty = () => {
     toast.warning(' Vui lòng nhập đầy đủ thông tin!', {
@@ -110,7 +109,7 @@ const Login: React.FC = () => {
           </div>
           <button className='lg-right-btn '> Đăng nhập</button>
           <div className="lg-ringt-wpAccout">
-            <span className="font-semibold">Tạo tài khoản?</span> <span></span>
+            <span className="font-semibold">Tạo tài khoản?</span>
             <Link to="/register" className="link-register"> Đăng kí</Link>
           </div>
         </form>

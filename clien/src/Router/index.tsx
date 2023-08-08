@@ -14,6 +14,7 @@ import TopicAmin from "../Component/Page/Admin/Topic/AdminTopic"
 import DetailTopic from '../Component/Page/Admin/Topic/DetailTopic/DetailTopic';
 import Question from '../Component/Page/Admin/Question/Question';
 import DetailUser from "../Component/Page/Admin/user/detailUser/DetailUser";
+import Learn from '../Component/Page/Topic/Learn/Learn';
 
 type PublicType = {
     path: string;
@@ -31,9 +32,13 @@ const Public: PublicType = [
     { path: "/", component: Home, layout: true },
     { path: "/login", component: Login, layout: true },
     { path: "/register", component: Register, layout: true },
+    { path: "/checkuser", component: CheckUser, layout: true },
+]
+
+const PrivateUser: PublicType = [
+    { path: "/topic/:id/learn", component: Learn, layout: false },
     { path: "/topic", component: Topic, layout: true },
-    { path: "/profile", component: ProfileUser, layout: true },
-    { path: "/checkuser", component: CheckUser, layout: true }
+    { path: "/profile", component: ProfileUser, layout: true }
 ]
 
 //admin
@@ -44,7 +49,7 @@ const Private: PrivateType = [
     { path: "/managerquestion", component: Question, layout: true },
     { path: "/detailuser/:id", component: DetailUser, layout: true }
 ]
-export { Private, Public }
+export { Private, Public,PrivateUser }
 
 
 

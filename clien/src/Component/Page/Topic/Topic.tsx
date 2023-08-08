@@ -5,7 +5,7 @@ import "./Topic.scss"
 
 const Topic: React.FC = () => {
   return (
-    <div className='flex gap-8 px-40 mt-5 '>
+    <div className='flex gap-8 px-40 mt-5 mb-[100px]'>
       <LeftTopic />
       <RightTopic />
     </div>

@@ -25,9 +25,7 @@ export class QuestionService {
             .getRawMany();
     }
 
-    async paginatequestion(page, limit): Promise<any> {
-        console.log(page, limit)
-    }
+   
 
     // lấy câu hỏi theo id
     async selectQuestion(id: number): Promise<TypeTopicQuestion> {
@@ -95,6 +93,21 @@ export class QuestionService {
     async countQuestion(): Promise<number> {
         try {
             return this.questionRepository.count()
+        } catch (error) {
+            throw new BadRequestException(error)
+        }
+    }
+
+    //Lấy data question theo tên topic
+    async selectNameQuestion(name): Promise<any> {
+        try {
+            const result = await this.topicRepository
+                .createQueryBuilder("topic")
+                .select(["name", 'question.*'])
+                .innerJoin("topic.questions", 'question')
+                .where("topic.name = :name", { name })
+                .getRawMany()
+            return result
         } catch (error) {
             throw new BadRequestException(error)
         }

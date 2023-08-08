@@ -23,11 +23,12 @@ export class TopicService {
     }
 
     // lấy dữ liệu begin
-    async selectBeginner(): Promise<Topic[]> {
+    async selectBeginner(id): Promise<Topic[]> {
         try {
             const result = await this.topicRepository.find({
                 where: {
-                    lever: "Sơ cấp"
+                    lever: "Sơ cấp",
+                    userId: id
                 }
             })
             return result
@@ -37,11 +38,12 @@ export class TopicService {
     }
 
     // lấy dữ liệu trung cấp
-    async selectIntermediate(): Promise<Topic[]> {
+    async selectIntermediate(id): Promise<Topic[]> {
         try {
             const result = await this.topicRepository.find({
                 where: {
-                    lever: "Trung cấp"
+                    lever: "Trung cấp",
+                    userId: id
                 }
             })
             return result
@@ -51,11 +53,12 @@ export class TopicService {
     }
 
     //lấy dữ liệu cao cấp
-    async selectAdvanced(): Promise<Topic[]> {
+    async selectAdvanced(id): Promise<Topic[]> {
         try {
             const result = await this.topicRepository.find({
                 where: {
-                    lever: "Cao cấp"
+                    lever: "Cao cấp",
+                    userId: id
                 }
             })
             return result
@@ -119,8 +122,32 @@ export class TopicService {
 
     async updateStatus(idUser): Promise<any> {
         try {
-            const result = this.topicRepository
-            console.log(result)
+            const result = await this.topicRepository.find({
+                where: {
+                    userId: idUser
+                }
+            })
+            if (result.length > 0) return
+            const dataTopic = await this.topicRepository.find({})
+            dataTopic.map(async (topic: Topic) => {
+                const newTopic = await this.topicRepository.create({
+                    name: topic.name,
+                    lever: topic.lever,
+                    target: topic.target,
+                    image: topic.image,
+                    status: topic.status,
+                    userId: idUser
+                })
+                await this.topicRepository.save(newTopic)
+            })
+            await this.topicRepository
+                .createQueryBuilder()
+                .update(Topic)
+                .set({ status: true })
+                .where("lever = :lever AND userId = :userId", { lever: "Sơ cấp", userId: idUser })
+                .execute()
+            return
+
         } catch (error) {
             throw new BadRequestException(error)
         }

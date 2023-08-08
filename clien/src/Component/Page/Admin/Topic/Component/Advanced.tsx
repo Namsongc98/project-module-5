@@ -8,7 +8,7 @@ import EditTopic from '../PopupTopic/EditTopic'
 import { BiDetail } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setTopicAdvanced } from '../../../../../Reducer/Slice/UseTopic'
+
 
 type Popup = {
   popup: boolean
@@ -17,12 +17,12 @@ const Advanced: React.FC<Popup> = ({ popup }) => {
   const [dataAdvanced, setAdvances] = useState<DataBeginner>([])
   const [idTonggle, setidTonggle] = useState<number | undefined>()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+ 
   // 
-  const getIntermediate = async () => {
+  const getAdvanced = async () => {
     try {
       const response = await axiosPrivate.get("/topic/getadvances")
-      dispatch(setTopicAdvanced(response.data))
+     
       setAdvances(response.data)
       return response.data
     } catch (error) {
@@ -30,14 +30,14 @@ const Advanced: React.FC<Popup> = ({ popup }) => {
     }
   }
   useEffect(() => {
-    getIntermediate()
+    getAdvanced()
   }, [popup])
 
   const handleDelete = async (idTopic: number) => {
     try {
       await axiosPrivate.delete(`/topic/delete/${idTopic}`);
       showToastsuccess();
-      getIntermediate();
+      getAdvanced()
     } catch (error) {
       console.log(error)
       throw new Error(error);

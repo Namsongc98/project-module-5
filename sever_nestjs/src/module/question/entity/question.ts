@@ -1,5 +1,5 @@
 import { Topic } from "src/module/topic/entity/topic";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity({ name: "question" })
@@ -34,8 +34,6 @@ export class Question {
     @Column("int")
     topicId: number
 
-    @ManyToOne(() => Topic, (topic) => topic.user,{onDelete: 'CASCADE',})
+    @ManyToOne(() => Topic, (topic) => topic.questions,{onDelete: 'CASCADE'})
     topic: Topic
-
-
 }

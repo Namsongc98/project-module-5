@@ -20,11 +20,8 @@ export class AuthService {
       throw new BadRequestException('Email không đúng');
     if (!user.status)
       throw new BadRequestException("Tài khoản bị khóa")
-
-    
-    // const topic = this.topicService.updateStatus(user.id)
+    await this.topicService.updateStatus(user.id)
     const profile = await this.userService.findProfile(user)
-
     const result = await bcrypt.compare(
       authSignIn.password,
       user.password,

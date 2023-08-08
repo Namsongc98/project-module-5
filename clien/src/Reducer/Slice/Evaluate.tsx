@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IUseEvaluate } from "../../type/UserModule";
-import { getEvaluete } from "../apiSlice.ts/Evaluate";
+import { getEvaluete } from "../apiSlice/Evaluate";
 
 
 const initialState = {

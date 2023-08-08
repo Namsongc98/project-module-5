@@ -1,8 +1,9 @@
+import { Topic } from 'src/module/topic/entity/topic';
 import { JoinColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Evaluate } from 'src/module/evaluate/entity/evaluate';
 import { Profile } from 'src/module/profile/entity/profile';
-import { Topic } from 'src/module/topic/entity/topic';
+
 import {
     Entity,
     PrimaryGeneratedColumn,
@@ -17,7 +18,7 @@ import {
 import { CreateUserDto } from '../dto/CreateUser.dto';
 @Entity({ name: 'user' })
 export class User {
-    constructor( createUserDto: CreateUserDto) {
+    constructor(createUserDto: CreateUserDto) {
         Object.assign(this, createUserDto)
     }
 
@@ -43,7 +44,7 @@ export class User {
     @OneToMany(() => Evaluate, (evaluate) => evaluate.user, { cascade: true })
     evaluate: Evaluate[];
 
-    @ManyToMany(() => Topic, (topic) => topic.user, { cascade: true })
-    @JoinTable()
-    topic: Topic[];
+    @OneToMany(() => Topic, (topic) => topic.user, {cascade:true})
+    topic: Topic[]
+
 }

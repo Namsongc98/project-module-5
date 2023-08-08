@@ -13,19 +13,19 @@ export class TopicController {
         return await this.serviteToppic.insertTopic(insertTopic)
     }
 
-    @Get("getbeginner")
-    async getBeinner() {
-        return await this.serviteToppic.selectBeginner()
+    @Get("getbeginner/:id")
+    async getBeinner(@Param("id") id: string) {
+        return await this.serviteToppic.selectBeginner(id)
     }
 
-    @Get("getintermediate")
-    async getIntermediate() {
-        return await this.serviteToppic.selectIntermediate()
+    @Get("getintermediate/:id")
+    async getIntermediate(@Param("id") id: string) {
+        return await this.serviteToppic.selectIntermediate(id)
     }
 
-    @Get("getadvances")
-    async getAdvanced() {
-        return await this.serviteToppic.selectAdvanced()
+    @Get("getadvances/:id")
+    async getAdvanced(@Param("id") id: string) {
+        return await this.serviteToppic.selectAdvanced(id)
     }
 
     @Get("getalltopic")

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from 'react-redux'
-import { setTopicBeginner } from '../../../../../Reducer/Slice/UseTopic'
+
 import {axiosPrivate} from '../../../../../config/ConfigApi'
 import beginner from "../../../../../assets/img/ic_beginner.webp";
 import { AiFillEdit, AiTwotoneDelete } from 'react-icons/ai'
@@ -16,15 +16,13 @@ type Popup = {
 const Beginner: React.FC<Popup> = ({ popup }) => {
   const [dataBeginer, setDataBeginer] = useState<DataBeginner>([]);
   const [idTonggle, setidTonggle] = useState<number | undefined>()
-  const [confirm,setConfirm] = useState(false)
-  const dispatch = useDispatch()
+
   const navigate = useNavigate()
 
   // datatopic beginner
   const getBeginner = async () => {
     try {
       const response = await axiosPrivate.get("/topic/getbeginner");
-      dispatch(setTopicBeginner(response.data))
       setDataBeginer(response.data);
       return response.data;
     } catch (error) {

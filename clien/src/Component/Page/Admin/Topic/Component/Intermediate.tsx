@@ -8,7 +8,7 @@ import EditTopic from '../PopupTopic/EditTopic'
 import { BiDetail } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setTopicIntermediate } from '../../../../../Reducer/Slice/UseTopic'
+
 
 type Popup = {
   popup: boolean
@@ -17,12 +17,10 @@ const Intermediate: React.FC<Popup> = (popup) => {
   const [dataIntermediate, setDataIntermediate] = useState<DataBeginner>([])
   const [idTonggle, setidTonggle] = useState<number | undefined>()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   // lấy dữ liệu trung cấp
   const getIntermediate = async () => {
     try {
       const response = await axiosPrivate.get("/topic/getintermediate")
-      dispatch(setTopicIntermediate(response.data))
       setDataIntermediate(response.data)
       return response.data
     } catch (error) {

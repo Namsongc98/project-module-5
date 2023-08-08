@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {  resetStatus } from "../apiSlice.ts/ApiUser";
+import {  resetStatus } from "../apiSlice/ApiUser";
 import { UsersState } from "../../type/UserModule";
 
 const initialState = {

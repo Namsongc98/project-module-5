@@ -11,6 +11,7 @@ import { AuthService } from './module/auth/auth.service';
 import { AuthController } from './module/auth/auth.controller';
 import { ProfileModule } from './module/profile/profile.module';
 import { QuestionModule } from './module/question/question.module';
+import { StatusModule } from './module/status/status.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -23,7 +24,7 @@ import { QuestionModule } from './module/question/question.module';
     entities,
     synchronize:true,
     logging: true
-  }), UsersModule, EvaluateModule, TopicModule, AuthModule, ProfileModule, QuestionModule],
+  }), UsersModule, EvaluateModule, TopicModule, AuthModule, ProfileModule, QuestionModule, StatusModule],
   controllers: [AppController, AuthController],
   providers: [AppService, AuthService],
 })

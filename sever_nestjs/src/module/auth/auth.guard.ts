@@ -21,12 +21,11 @@ export class AuthGuard implements CanActivate {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: jwtConstants.secret,
       });
-
-      request['user'] = payload;
+      request['payload'] = payload;
     } catch (error) {
       throw new UnauthorizedException();
     }
-    return true;
+    return true
   }
   private extractTokenFromHeader(request: Request): string | undefined {
     const [type, token] = request.headers.authorization?.split(' ') ?? [];

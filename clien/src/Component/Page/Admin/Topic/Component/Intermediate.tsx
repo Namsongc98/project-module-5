@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import intermediate from "../../../../../assets/img/ic_intermediate.webp"
 import { DataBeginner } from '../../../../../type/Topic'
-import {axiosPrivate} from '../../../../../config/ConfigApi'
+import { axiosPrivate } from '../../../../../config/ConfigApi'
 import { AiFillEdit, AiTwotoneDelete } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 import EditTopic from '../PopupTopic/EditTopic'
 import { BiDetail } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getLogin } from '../../../../../Reducer/Slice/UserSlice'
 
 
 type Popup = {
@@ -16,11 +17,13 @@ type Popup = {
 const Intermediate: React.FC<Popup> = (popup) => {
   const [dataIntermediate, setDataIntermediate] = useState<DataBeginner>([])
   const [idTonggle, setidTonggle] = useState<number | undefined>()
+  const currenUser = useSelector(getLogin)
+  const idUser = currenUser.id;
   const navigate = useNavigate()
   // lấy dữ liệu trung cấp
   const getIntermediate = async () => {
     try {
-      const response = await axiosPrivate.get("/topic/getintermediate")
+      const response = await axiosPrivate.get(`/topic/getintermediate/`)
       setDataIntermediate(response.data)
       return response.data
     } catch (error) {
@@ -38,7 +41,6 @@ const Intermediate: React.FC<Popup> = (popup) => {
       showToastsuccess();
       getIntermediate();
     } catch (error) {
-    console.log(error)
       throw new Error(error);
     }
   };

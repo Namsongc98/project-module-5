@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import advanced from "../../../../../assets/img/ic_advanced.webp"
 import { DataBeginner } from '../../../../../type/Topic'
-import {axiosPrivate} from '../../../../../config/ConfigApi'
+import { axiosPrivate } from '../../../../../config/ConfigApi'
 import { AiFillEdit, AiTwotoneDelete } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
 import EditTopic from '../PopupTopic/EditTopic'
 import { BiDetail } from 'react-icons/bi'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getLogin } from '../../../../../Reducer/Slice/UserSlice'
 
 
 type Popup = {
@@ -17,12 +18,13 @@ const Advanced: React.FC<Popup> = ({ popup }) => {
   const [dataAdvanced, setAdvances] = useState<DataBeginner>([])
   const [idTonggle, setidTonggle] = useState<number | undefined>()
   const navigate = useNavigate()
- 
+  const currenUser = useSelector(getLogin)
+  const idUser = currenUser.id;
+
   // 
   const getAdvanced = async () => {
     try {
-      const response = await axiosPrivate.get("/topic/getadvances")
-     
+      const response = await axiosPrivate.get(`/topic/getadvances/`)
       setAdvances(response.data)
       return response.data
     } catch (error) {

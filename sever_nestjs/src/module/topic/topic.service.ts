@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Topic } from './entity/topic';
 import { InjectRepository } from '@nestjs/typeorm';
 import { topicType } from './type/TypeTopic';
@@ -23,12 +23,11 @@ export class TopicService {
     }
 
     // lấy dữ liệu begin
-    async selectBeginner(id): Promise<Topic[]> {
+    async selectBeginner(): Promise<Topic[]> {
         try {
             const result = await this.topicRepository.find({
                 where: {
                     lever: "Sơ cấp",
-                    userId: id
                 }
             })
             return result
@@ -38,12 +37,11 @@ export class TopicService {
     }
 
     // lấy dữ liệu trung cấp
-    async selectIntermediate(id): Promise<Topic[]> {
+    async selectIntermediate(): Promise<Topic[]> {
         try {
             const result = await this.topicRepository.find({
                 where: {
                     lever: "Trung cấp",
-                    userId: id
                 }
             })
             return result
@@ -53,12 +51,11 @@ export class TopicService {
     }
 
     //lấy dữ liệu cao cấp
-    async selectAdvanced(id): Promise<Topic[]> {
+    async selectAdvanced(): Promise<Topic[]> {
         try {
             const result = await this.topicRepository.find({
                 where: {
                     lever: "Cao cấp",
-                    userId: id
                 }
             })
             return result
@@ -120,36 +117,36 @@ export class TopicService {
         }
     }
 
-    async updateStatus(idUser): Promise<any> {
-        try {
-            const result = await this.topicRepository.find({
-                where: {
-                    userId: idUser
-                }
-            })
-            if (result.length > 0) return
-            const dataTopic = await this.topicRepository.find({})
-            dataTopic.map(async (topic: Topic) => {
-                const newTopic = await this.topicRepository.create({
-                    name: topic.name,
-                    lever: topic.lever,
-                    target: topic.target,
-                    image: topic.image,
-                    status: topic.status,
-                    userId: idUser
-                })
-                await this.topicRepository.save(newTopic)
-            })
-            await this.topicRepository
-                .createQueryBuilder()
-                .update(Topic)
-                .set({ status: true })
-                .where("lever = :lever AND userId = :userId", { lever: "Sơ cấp", userId: idUser })
-                .execute()
-            return
+    // async updateStatus(idUser): Promise<any> {
+    //     try {
+    //         const result = await this.topicRepository.find({
+    //             where: {
+    //                 userId: idUser
+    //             }
+    //         })
+    //         if (result.length > 0) return
+    //         const dataTopic = await this.topicRepository.find({})
+    //         dataTopic.map(async (topic: Topic) => {
+    //             const newTopic = await this.topicRepository.create({
+    //                 name: topic.name,
+    //                 lever: topic.lever,
+    //                 target: topic.target,
+    //                 image: topic.image,
+    //                 status: topic.status,
+    //                 userId: idUser
+    //             })
+    //             await this.topicRepository.save(newTopic)
+    //         })
+    //         await this.topicRepository
+    //             .createQueryBuilder()
+    //             .update(Topic)
+    //             .set({ status: true })
+    //             .where("lever = :lever AND userId = :userId", { lever: "Sơ cấp", userId: idUser })
+    //             .execute()
+    //         return
 
-        } catch (error) {
-            throw new BadRequestException(error)
-        }
-    }
+    //     } catch (error) {
+    //         throw new BadRequestException(error)
+    //     }
+    // }
 }

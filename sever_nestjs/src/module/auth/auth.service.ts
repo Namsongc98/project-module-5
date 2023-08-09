@@ -4,6 +4,7 @@ import { authSignIn } from './TypeAuth/TypeAuth';
 import { UsersService } from '../users/users.service';
 import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { StatusService } from '../status/status.service';
 import { TopicService } from '../topic/topic.service';
 
 @Injectable()
@@ -11,7 +12,8 @@ export class AuthService {
   constructor(
     private userService: UsersService,
     private jwtService: JwtService,
-    private topicService: TopicService
+    private statusService: StatusService,
+    private  topicServive: TopicService
   ) { }
 
   async signIn(authSignIn: authSignIn): Promise<any> {
@@ -20,7 +22,8 @@ export class AuthService {
       throw new BadRequestException('Email không đúng');
     if (!user.status)
       throw new BadRequestException("Tài khoản bị khóa")
-    await this.topicService.updateStatus(user.id)
+    await this.statusService.updateUser(user.id)
+    
     const profile = await this.userService.findProfile(user)
     const result = await bcrypt.compare(
       authSignIn.password,

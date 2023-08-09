@@ -2,8 +2,9 @@ import React, { useState, ChangeEvent, useEffect, FormEvent, Dispatch, SetStateA
 import { WiStars } from 'react-icons/wi'
 import imgUpload from "../../../../../assets/img/upanh.png"
 import { ToastContainer, toast } from 'react-toastify'
-import {axiosPrivate} from '../../../../../config/ConfigApi'
+import { axiosPrivate } from '../../../../../config/ConfigApi'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import axios from 'axios'
 
 
 interface IPropPopup {
@@ -42,17 +43,18 @@ const PostTopic: React.FC<IPropPopup> = ({ propSetPopup }) => {
         const imgForm = new FormData()
         imgForm.append("file", imgTopic)
         imgForm.append("upload_preset", "dinoEnglish");
-        const response = await axiosPrivate.post(
-            "https://api.cloudinary.com/v1_1/dlb1ac5xw/image/upload",
-            imgForm
-        )
-        const newTopic = {
-            name: nameTopic,
-            lever: leverTopic,
-            target: targetTopic,
-            image: response.data.secure_url
-        }
+
         try {
+            const result = await axios.post(
+                "https://api.cloudinary.com/v1_1/dlb1ac5xw/image/upload",
+                imgForm
+            )
+            const newTopic = {
+                name: nameTopic,
+                lever: leverTopic,
+                target: targetTopic,
+                image: result.data.secure_url
+            }
             const response = await axiosPrivate.post("/topic/inserttopic", newTopic)
             const resetImg = URL.revokeObjectURL(imgTopicView?.preview)
             setNameTopic("")

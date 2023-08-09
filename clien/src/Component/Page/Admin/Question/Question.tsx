@@ -29,7 +29,7 @@ const Question: React.FC = () => {
     const displayQuesion = dataQuesion?.slice(pagesVisited, pagesVisited + usersPerPage)
     const dispatch = useDispatch()
 
-  //  get question 
+    //  get question 
     const getAllQuestion = async () => {
         try {
             const response = await axiosPrivate.get("/question");

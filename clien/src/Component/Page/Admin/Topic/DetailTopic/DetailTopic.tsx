@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import FormQuestion from './FormQuestion'
 import "./Detail.scss"
 import { AiFillDelete, AiFillEdit, AiFillQuestionCircle } from 'react-icons/ai'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import {axiosPrivate} from '../../../../../config/ConfigApi'
 import { ToastContainer, toast } from 'react-toastify'
 import FromEdit from './FromEdit'
 import { IQuestion } from '../../../../../type/Topic'
 import { FaQuestionCircle } from 'react-icons/fa'
+import { BiArrowBack } from 'react-icons/bi'
 
 
 const DetailTopic: React.FC = () => {
@@ -18,6 +19,7 @@ const DetailTopic: React.FC = () => {
 
   const [idTonggle, setidTonggle] = useState<number | undefined>()
   const { id } = useParams()
+  const navigate = useNavigate()
 
   //lấy getquestion theo id topic 
   const getQuesttion = async () => {
@@ -96,7 +98,7 @@ const DetailTopic: React.FC = () => {
       </div>
 
       <div className="mt-5 w-full">
-        <div className=" wp-table">
+        <div className=" wp-table p-2">
           <table className='w-full detail-table'>
             <thead className='detail-thead'>
               <tr className=' '>
@@ -162,6 +164,9 @@ const DetailTopic: React.FC = () => {
               ))}
             </tbody>
           </table>
+          <div className="wp-btn-back">
+            <button onClick={()=>navigate(-1)} className="btn-back"><BiArrowBack/> Trở lại</button>
+          </div>
           {idTonggle &&
             <FromEdit isToggle={setidTonggle} idBeginer={idTonggle} />
           }

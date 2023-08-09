@@ -20,16 +20,6 @@ export class Topic {
   @Column("varchar", { length: 100 })
   image: string;
 
-  @Column("boolean", { default: false })
-  status: boolean;
-
-  @Column("varchar", { length: 36, nullable: true })
-  userId: string;
-
   @OneToMany(() => Question, (question) => question.topic, { cascade: true })
   questions: Question[]
-
-  @ManyToOne(() => User, (user) => user.topic, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "userId" })
-  user: User
 }

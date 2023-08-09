@@ -3,7 +3,6 @@ import leverOne from "../../../../assets/img/ic_beginner.webp"
 import leverTwo from "../../../../assets/img/ic_intermediate.webp"
 import leverThree from "../../../../assets/img/ic_advanced.webp"
 import { useSelector } from 'react-redux'
-import { getTopicAdvanced, getTopicBeginner, getTopicIntermediate } from '../../../../Reducer/Slice/UseTopic'
 import { DataBeginner } from '../../../../type/Topic'
 import { useNavigate } from 'react-router-dom'
 import { axiosPrivate } from '../../../../config/ConfigApi'
@@ -18,7 +17,6 @@ const LeftTopic: React.FC = () => {
     const [nameTopic, setNameTopic] = useState("")
     const currenUser = useSelector(getLogin)
     const navigate = useNavigate()
-
     const useId = currenUser.id
 
     // get trung cấp
@@ -47,10 +45,13 @@ const LeftTopic: React.FC = () => {
     useEffect(() => {
         getBeginner();
     }, []);
+
     // cao cấp
     const getAdvanced = async () => {
         try {
-            const response = await axiosPrivate.get(`/topic/getadvances/${useId}`)
+            const response = await axiosPrivate.get(`
+            
+            /topic/getadvances/${useId}`)
 
             setAdvances(response.data)
             return response.data
@@ -83,7 +84,7 @@ const LeftTopic: React.FC = () => {
                     <h1 className="font-semibold text-2xl text-slate-500">Sơ Cấp</h1>
                     <img src={leverOne} alt="" className='w-8 h-8' />
                 </div>
-                <div className="w-full flex flex-col gap-5 ">
+                <div className="w-full flex flex-col gap-5">
                     {dataBeginer?.map((topic) => (
                         <div onClick={() => handlTopic(topic.image, topic.name, topic.status)} key={topic.id} className={` flex items-center justify-between p-4 wp-card-topic border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]`}>
                             <div className="">

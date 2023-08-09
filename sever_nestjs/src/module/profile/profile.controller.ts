@@ -1,6 +1,7 @@
-import { Controller, Post, Body, Res, HttpStatus, Get, Query, ParseIntPipe } from '@nestjs/common';
+import { Controller, Post, Body, Res, HttpStatus, Get, Query, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 import { Response } from 'express';
+import { AuthGuard } from '../auth/auth.guard';
 
 
 @Controller('profile')
@@ -24,6 +25,7 @@ export class ProfileController {
 
   // phan trang + search user join profile
   @Get("users")
+  @UseGuards(AuthGuard)
   async pagination(
     @Query("page", ParseIntPipe) page: number,
     @Query("limit", ParseIntPipe) limit: number,

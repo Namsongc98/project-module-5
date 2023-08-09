@@ -1,11 +1,12 @@
 import React, { useState, ChangeEvent, useEffect, FormEvent, Dispatch, SetStateAction } from 'react'
 import { WiStars } from 'react-icons/wi'
 import { ToastContainer, toast } from 'react-toastify'
-import {axiosPrivate} from '../../../../../config/ConfigApi'
+import { axiosPrivate } from '../../../../../config/ConfigApi'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import '../AdminTopic.scss'
 import { getAllTopic } from '../../../../../Reducer/Slice/UseTopic';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
 interface IPropPopup {
   isToggle: Dispatch<SetStateAction<any>>,
   idBeginer: number,
@@ -66,7 +67,7 @@ const EditTopic: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
       image: response.data.secure_url
     }
     try {
-      const response = await axiosPrivate.put('/topic/puttopic', newTopic)
+      const response = await axios.put('/topic/puttopic', newTopic)
       handleReset()
       showToastsuccess()
       setLoading(false)

@@ -25,9 +25,6 @@ class Profile {
     @Column("longtext", { nullable: true })
     avatar: string;
 
-    @Column({ default: 0 })
-    poiter: number;
-
     @Column("varchar", { length: 36 })
     userId: string;
 

@@ -35,16 +35,9 @@ export class User {
     @Column('varchar', { default: "user" })
     role: string;
 
-    @Column("int", { default: 0 })
-    point: number;
-
     @Column("boolean", { default: true })
     status: boolean;
 
     @OneToMany(() => Evaluate, (evaluate) => evaluate.user, { cascade: true })
     evaluate: Evaluate[];
-
-    @OneToMany(() => Topic, (topic) => topic.user, {cascade:true})
-    topic: Topic[]
-
 }

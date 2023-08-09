@@ -8,7 +8,7 @@ import { UserDto } from './dto/User.dto';
 export class UsersController {
   constructor(private userService: UsersService) { }
   @Get()
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   async getAllUsers(): Promise<UserDto[]> {
     return await this.userService.findAll();
   }

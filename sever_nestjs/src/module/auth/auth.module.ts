@@ -6,11 +6,13 @@ import { UsersModule } from '../users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { TopicModule } from '../topic/topic.module';
+import { StatusModule } from '../status/status.module';
 
 @Module({
   imports: [
     TopicModule,
     UsersModule,
+    StatusModule,
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,

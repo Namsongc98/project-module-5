@@ -1,28 +1,31 @@
 import React, { useState, useEffect } from 'react'
 
 import { ToastContainer, toast } from "react-toastify";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import {axiosPrivate} from '../../../../../config/ConfigApi'
+import { axiosPrivate } from '../../../../../config/ConfigApi'
 import beginner from "../../../../../assets/img/ic_beginner.webp";
 import { AiFillEdit, AiTwotoneDelete } from 'react-icons/ai'
 import EditTopic from '../PopupTopic/EditTopic';
 import { DataBeginner } from '../../../../../type/Topic';
 import { BiDetail } from "react-icons/bi"
 import { useNavigate } from 'react-router-dom';
+import { getLogin } from '../../../../../Reducer/Slice/UserSlice';
 type Popup = {
   popup: boolean
 }
 const Beginner: React.FC<Popup> = ({ popup }) => {
   const [dataBeginer, setDataBeginer] = useState<DataBeginner>([]);
   const [idTonggle, setidTonggle] = useState<number | undefined>()
+  const currenUser = useSelector(getLogin)
+  const idUser = currenUser.id;
 
   const navigate = useNavigate()
 
   // datatopic beginner
   const getBeginner = async () => {
     try {
-      const response = await axiosPrivate.get("/topic/getbeginner");
+      const response = await axiosPrivate.get(`/topic/getbeginner/`);
       setDataBeginer(response.data);
       return response.data;
     } catch (error) {
@@ -116,7 +119,7 @@ const Beginner: React.FC<Popup> = ({ popup }) => {
         ))}
       </div>
       {idTonggle &&
-        <EditTopic isToggle={setidTonggle} idBeginer={idTonggle!}  />
+        <EditTopic isToggle={setidTonggle} idBeginer={idTonggle!} />
       }
     </div>
   )

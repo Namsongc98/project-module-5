@@ -38,7 +38,7 @@ const ManagerUser: React.FC = () => {
   }, [deBounce])
 
   const handlePagination = async ({ selected }: any) => {
-    if (selected === 0) return paginationUser()
+
     const skip = selected * limit
     try {
       const url = `/profile/users?page=${skip}&limit=${limit}&email=${encodeURIComponent(email)}`
@@ -83,7 +83,6 @@ const ManagerUser: React.FC = () => {
     } catch (error) {
       throw new Error(error)
     }
-
   }
 
   // đếm người dùng 

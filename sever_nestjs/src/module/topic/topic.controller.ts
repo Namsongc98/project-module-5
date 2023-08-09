@@ -13,19 +13,19 @@ export class TopicController {
         return await this.serviteToppic.insertTopic(insertTopic)
     }
 
-    @Get("getbeginner/:id")
-    async getBeinner(@Param("id") id: string) {
-        return await this.serviteToppic.selectBeginner(id)
+    @Get("getbeginner/")
+    async getBeinner() {
+        return await this.serviteToppic.selectBeginner()
     }
 
-    @Get("getintermediate/:id")
-    async getIntermediate(@Param("id") id: string) {
-        return await this.serviteToppic.selectIntermediate(id)
+    @Get("getintermediate/")
+    async getIntermediate() {
+        return await this.serviteToppic.selectIntermediate()
     }
 
-    @Get("getadvances/:id")
-    async getAdvanced(@Param("id") id: string) {
-        return await this.serviteToppic.selectAdvanced(id)
+    @Get("getadvances/")
+    async getAdvanced() {
+        return await this.serviteToppic.selectAdvanced()
     }
 
     @Get("getalltopic")
@@ -49,6 +49,4 @@ export class TopicController {
         const { name } = searchTopic
         return this.serviteToppic.selectTopic(name)
     }
-
-
 }

@@ -4,7 +4,6 @@
     lever: string,
     target: string,
     image: string,
-    status?:boolean | number
 }
 
 export {topicType}

@@ -2,28 +2,51 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Status } from './entity/Status';
 import { Repository } from 'typeorm';
+import { TopicService } from '../topic/topic.service';
+import { Topic } from '../topic/entity/topic';
 
 @Injectable()
 export class StatusService {
 
     constructor(
         @InjectRepository(Status)
-        private repoStatus: Repository<Status>
+        private repoStatus: Repository<Status>,
+        private topicService: TopicService
     ) { }
-
-    async updateUser(id): Promise<any> {
-        const findStatus = await this.repoStatus.findOne({
+    // update login
+    async updateUser(idUser): Promise<any> {
+        const dataTopic = await this.topicService.selectAll()
+        const dataStatus = await this.repoStatus.find({
             where: {
-                userId: id
+                userId: idUser
             }
         })
-        if (findStatus) return
         try {
-            
-            const newStatus = await this.repoStatus.create({
-                userId: id
-            })
-            await this.repoStatus.save(newStatus)
+            // hàm tạo mới Status
+            const handleCreate = async(topics:Topic[])=>{
+                topics.map(async (topic) => {
+                    const newstatus = new Status()
+                    newstatus.userId = idUser;
+                    newstatus.topicId = topic.id;
+                    return await this.repoStatus.save(newstatus)
+                })
+            }
+
+            if (dataStatus.length === 0) {
+                handleCreate(dataTopic)
+            } else if (dataTopic.length <= dataStatus.length) {
+                dataStatus.map(async (status) => {
+                    const newstatus = await this.repoStatus.create({
+                        ...status,
+                        userId: idUser,
+                        topicId: status.topicId
+                    })
+                    return await this.repoStatus.save(newstatus)
+                })
+            } else if (dataTopic.length > dataStatus.length) {
+                const result = dataTopic.filter(topic => !dataStatus.some(status => status.topicId === topic.id))
+                handleCreate(result)
+            }
         } catch (error) {
             throw new BadRequestException(error)
         }

@@ -23,7 +23,6 @@ export class AuthService {
     if (!user.status)
       throw new BadRequestException("Tài khoản bị khóa")
     await this.statusService.updateUser(user.id)
-    
     const profile = await this.userService.findProfile(user)
     const result = await bcrypt.compare(
       authSignIn.password,

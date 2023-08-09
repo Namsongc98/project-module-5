@@ -3,11 +3,12 @@ import { StatusController } from './status.controller';
 import { StatusService } from './status.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Status } from './entity/Status';
+import { TopicModule } from '../topic/topic.module';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Status])],
+  imports: [TopicModule, TypeOrmModule.forFeature([Status])],
   controllers: [StatusController],
   providers: [StatusService],
   exports: [StatusService]
 })
-export class StatusModule {}
+export class StatusModule { }

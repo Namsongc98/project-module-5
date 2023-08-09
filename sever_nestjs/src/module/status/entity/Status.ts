@@ -1,7 +1,7 @@
 import { Length } from 'class-validator';
 import { Topic } from "src/module/topic/entity/topic";
 import { User } from "src/module/users/entity/user";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({ name: "status" })
 export class Status {
@@ -27,11 +27,11 @@ export class Status {
     @Column("int", { nullable: true })
     topicId: number;
 
-    @OneToOne(() => User)
+    @ManyToOne(() => User, (user)=>user.statusTopic,{onDelete:"CASCADE"})
     @JoinColumn({ name: "userId" })
-    user: string;
+    user: User;
 
-    @OneToOne(() => Topic)
+    @ManyToOne(() => Topic,(topic)=>topic.status,{onDelete:"CASCADE"})
     @JoinColumn({ name: "topicId" })
-    topic: string;
+    topic: Topic;
 }

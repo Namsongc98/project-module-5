@@ -16,6 +16,7 @@ import {
 
 } from 'typeorm';
 import { CreateUserDto } from '../dto/CreateUser.dto';
+import { Status } from 'src/module/status/entity/Status';
 @Entity({ name: 'user' })
 export class User {
     constructor(createUserDto: CreateUserDto) {
@@ -37,6 +38,9 @@ export class User {
 
     @Column("boolean", { default: true })
     status: boolean;
+
+    @OneToMany(()=>Status,(status)=>status.user, { cascade: true })
+    statusTopic: Status
 
     @OneToMany(() => Evaluate, (evaluate) => evaluate.user, { cascade: true })
     evaluate: Evaluate[];

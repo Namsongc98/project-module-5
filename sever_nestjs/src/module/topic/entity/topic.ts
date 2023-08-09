@@ -1,4 +1,5 @@
 import { Question } from 'src/module/question/entity/question';
+import { Status } from 'src/module/status/entity/Status';
 import { User } from 'src/module/users/entity/user';
 
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
@@ -21,5 +22,8 @@ export class Topic {
   image: string;
 
   @OneToMany(() => Question, (question) => question.topic, { cascade: true })
-  questions: Question[]
+  questions: Question[];
+
+  @OneToMany(() => Status, (status) => status.topic, { cascade: true })
+  status: Status[];
 }

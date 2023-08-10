@@ -10,7 +10,6 @@ import { StatusModule } from '../status/status.module';
 
 @Module({
   imports: [
-    TopicModule,
     UsersModule,
     StatusModule,
     JwtModule.register({

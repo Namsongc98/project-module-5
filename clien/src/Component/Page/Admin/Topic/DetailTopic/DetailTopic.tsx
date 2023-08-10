@@ -29,7 +29,6 @@ const DetailTopic: React.FC = () => {
       setDataQuestion(response.data.question)
       setTopic(response.data.topic)
       setCountQuestion(response.data.count)
-
       return response.data
     } catch (error) {
       throw new Error()

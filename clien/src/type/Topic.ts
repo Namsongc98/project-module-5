@@ -8,6 +8,20 @@ type DataBeginner = {
   target: string;
 }[];
 
+type TopicData = {
+  id: number;
+  image: string;
+  lever: string;
+  name: string;
+  poiter: number;
+  status_advanced: boolean;
+  status_beginner: boolean;
+  status_intermediate: boolean;
+  target: string;
+  topicId: number;
+  userId: string;
+}
+
 
 interface IQuestion {
   answer: string
@@ -37,4 +51,4 @@ type IQuestionJoinTopic = {
   target?: string
   topicId?: number
 }
-export { DataBeginner, IQuestion,IQuestionJoinTopic }
+export { DataBeginner, IQuestion, IQuestionJoinTopic, TopicData }

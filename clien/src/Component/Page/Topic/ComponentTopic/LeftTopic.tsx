@@ -3,69 +3,42 @@ import leverOne from "../../../../assets/img/ic_beginner.webp"
 import leverTwo from "../../../../assets/img/ic_intermediate.webp"
 import leverThree from "../../../../assets/img/ic_advanced.webp"
 import { useSelector } from 'react-redux'
-import { DataBeginner } from '../../../../type/Topic'
+import { TopicData } from '../../../../type/Topic'
 import { useNavigate } from 'react-router-dom'
 import { axiosPrivate } from '../../../../config/ConfigApi'
 import { getLogin } from '../../../../Reducer/Slice/UserSlice'
 
 const LeftTopic: React.FC = () => {
-    const [IdPopup, setIdTopic] = useState(false)
-    const [dataIntermediate, setDataIntermediate] = useState<DataBeginner>([])
-    const [dataBeginer, setDataBeginer] = useState<DataBeginner>([]);
-    const [dataAdvanced, setAdvances] = useState<DataBeginner>([])
+    const [popup, setpopup] = useState(false)
+    const [dataTopic, setDataTopic] = useState<TopicData[]>([])
     const [imgTopic, setImgTopic] = useState("")
     const [nameTopic, setNameTopic] = useState("")
     const currenUser = useSelector(getLogin)
     const navigate = useNavigate()
     const useId = currenUser.id
 
-    // get trung cấp
-    const getIntermediate = async () => {
+    // get topic
+    const getTopic = async () => {
         try {
-            const response = await axiosPrivate.get(`/topic/getintermediate/${useId}`)
-            setDataIntermediate(response.data)
+            const response = await axiosPrivate.get(`/status/topic/${useId}`)
+            setDataTopic(response.data)
             return response.data
         } catch (error) {
             throw new Error(error)
         }
     }
+    console.log(dataTopic)
     useEffect(() => {
-        getIntermediate()
+        getTopic()
     }, [])
-    // Sơ cấp
-    const getBeginner = async () => {
-        try {
-            const response = await axiosPrivate.get(`/topic/getbeginner/${useId}`);
-            setDataBeginer(response.data);
-            return response.data;
-        } catch (error) {
-            throw new Error(error);
-        }
-    };
-    useEffect(() => {
-        getBeginner();
-    }, []);
 
-    // cao cấp
-    const getAdvanced = async () => {
-        try {
-            const response = await axiosPrivate.get(`
-            
-            /topic/getadvances/${useId}`)
-
-            setAdvances(response.data)
-            return response.data
-        } catch (error) {
-            throw new Error(error)
-        }
-    }
-    useEffect(() => {
-        getAdvanced()
-    }, [])
+    const dataBeginer = dataTopic?.filter((topic) => topic.lever === "Sơ cấp")
+    const dataIntermediate = dataTopic?.filter((topic) => topic.lever === "Trung cấp")
+    const dataAdvanced = dataTopic?.filter((topic) => topic.lever === "Cao cấp")
 
     const handlTopic = (imgTopic: string, nameTopic: string, status: boolean) => {
         if (!status) {
-            setIdTopic(true)
+            setpopup(true)
             setImgTopic(imgTopic)
             setNameTopic(nameTopic)
             return
@@ -86,12 +59,12 @@ const LeftTopic: React.FC = () => {
                 </div>
                 <div className="w-full flex flex-col gap-5">
                     {dataBeginer?.map((topic) => (
-                        <div onClick={() => handlTopic(topic.image, topic.name, topic.status)} key={topic.id} className={` flex items-center justify-between p-4 wp-card-topic border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]`}>
+                        <div onClick={() => handlTopic(topic.image, topic.name, topic.status_beginner)} key={topic.id} className={` flex items-center justify-between p-4 wp-card-topic border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]`}>
                             <div className="">
                                 <p className="font-semibold text-xl">{topic.name}</p>
                                 <p className="font-semibold opacity-60 mt-2">{topic.target}</p>
                             </div>
-                            <div className={`rounded-full  overflow-hidden ${topic.status ? "" : "isTopic"}`}>
+                            <div className={`rounded-full  overflow-hidden ${topic.status_beginner ? "" : "isTopic"}`}>
                                 <img src={topic.image} alt="" className='w-16 h-16' />
                             </div>
                         </div>
@@ -105,12 +78,12 @@ const LeftTopic: React.FC = () => {
                 </div>
                 <div className="w-full flex flex-col gap-5">
                     {dataIntermediate?.map((topic) => (
-                        <div key={topic.id} onClick={() => handlTopic(topic.image, topic.name, topic.status)} className="flex items-center justify-between p-4 wp-card-topic border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]">
+                        <div key={topic.id} onClick={() => handlTopic(topic.image, topic.name, topic.status_intermediate)} className="flex items-center justify-between p-4 wp-card-topic border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]">
                             <div className="">
                                 <p className="font-semibold text-xl">{topic.name}</p>
                                 <p className="font-semibold opacity-60 mt-2">{topic.target}</p>
                             </div>
-                            <div className={`rounded-full  overflow-hidden ${topic.status ? "" : "isTopic"}`}>
+                            <div className={`rounded-full  overflow-hidden ${topic.status_intermediate ? "" : "isTopic"}`}>
                                 <img src={topic.image} alt="" className='w-16 h-16' />
                             </div>
                         </div>
@@ -124,26 +97,26 @@ const LeftTopic: React.FC = () => {
                 </div>
                 <div className="w-full flex flex-col gap-5 ">
                     {dataAdvanced?.map((topic) => (
-                        <div key={topic.id} onClick={() => handlTopic(topic.image, topic.name, topic.status)} className="flex items-center justify-between p-4 wp-card-topic border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]">
+                        <div key={topic.id} onClick={() => handlTopic(topic.image, topic.name, topic.status_advanced)} className="flex items-center justify-between p-4 wp-card-topic border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]">
                             <div className="">
                                 <p className="font-semibold text-xl">{topic.name}</p>
                                 <p className="font-semibold opacity-60 mt-2">{topic.target}</p>
                             </div>
-                            <div className={`rounded-full  overflow-hidden ${topic.status ? "" : "isTopic"}`}>
+                            <div className={`rounded-full  overflow-hidden ${topic.status_advanced ? "" : "isTopic"}`}>
                                 <img src={topic.image} alt="" className='w-16 h-16' />
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-            {IdPopup && <div className='PopupTopic'>
+            {popup && <div className='PopupTopic'>
                 <div className="contenTopic">
                     <div className="wp-imgTopic">
                         <img src={imgTopic} alt="" className='imgTopic' />
                     </div>
                     <p className="m-3 text-xl font-semibold">{nameTopic}</p>
                     <p className="text-center font-medium opacity-60">Vượt qua bài kiểm tra Sơ cấp hoặc nâng cấp phiên bản Pro để mở khóa chủ đề này</p>
-                    <button className="btn-Topic" onClick={() => setIdTopic(false)}>Hủy</button>
+                    <button className="btn-Topic" onClick={() => setpopup(false)}>Hủy</button>
                 </div>
             </div>}
         </div>

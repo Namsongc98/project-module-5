@@ -13,7 +13,6 @@ export class AuthService {
     private userService: UsersService,
     private jwtService: JwtService,
     private statusService: StatusService,
-    private  topicServive: TopicService
   ) { }
 
   async signIn(authSignIn: authSignIn): Promise<any> {

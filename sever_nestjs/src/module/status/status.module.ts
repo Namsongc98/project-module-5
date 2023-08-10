@@ -4,7 +4,6 @@ import { StatusService } from './status.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Status } from './entity/Status';
 import { TopicModule } from '../topic/topic.module';
-
 @Module({
   imports: [TopicModule, TypeOrmModule.forFeature([Status])],
   controllers: [StatusController],

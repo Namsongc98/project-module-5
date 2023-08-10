@@ -2,8 +2,13 @@ import React, { useEffect, useState } from 'react'
 import "../Learn.scss"
 import { useParams } from 'react-router-dom'
 import { axiosPrivate } from '../../../../../config/ConfigApi'
-const RightLearn: React.FC = () => {
-    const [questions, setquestion] = useState()
+import { TopicData } from '../../../../../type/Topic'
+type propData = {
+    dataTopic: TopicData[]
+}
+const RightLearn: React.FC<propData> = () => {
+    const [questions, setquestion] = useState([])
+
     const { id } = useParams()
 
 
@@ -15,7 +20,7 @@ const RightLearn: React.FC = () => {
             throw new Error(error)
         }
     }
-
+    console.log(questions)
     useEffect(() => {
         getQuestion()
     }, [])

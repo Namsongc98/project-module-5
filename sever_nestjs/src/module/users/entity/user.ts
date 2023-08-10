@@ -39,7 +39,7 @@ export class User {
     @Column("boolean", { default: true })
     status: boolean;
 
-    @OneToMany(()=>Status,(status)=>status.user, { cascade: true })
+    @OneToMany(() => Status, (status) => status.user, { cascade: true })
     statusTopic: Status
 
     @OneToMany(() => Evaluate, (evaluate) => evaluate.user, { cascade: true })

@@ -1,22 +1,30 @@
 import React, { useState } from 'react'
 import "../Learn.scss"
-import { useNavigate } from 'react-router-dom'
-import { useAppSelector } from '../../../../../Store/Store'
-import { getTopicAdvanced, getTopicBeginner, getTopicIntermediate } from '../../../../../Reducer/Slice/UseTopic'
+import { useNavigate, } from 'react-router-dom'
 import logo from "../../../../../assets/img/imageLogo.webp"
 import { AiOutlineMenu } from 'react-icons/ai'
-
-const LeftLearn: React.FC = () => {
-    const beginner = useAppSelector(getTopicBeginner)
-    const intermediate = useAppSelector(getTopicIntermediate)
-    const advanced = useAppSelector(getTopicAdvanced)
+import { TopicData } from '../../../../../type/Topic'
+type propData = {
+    dataTopic: TopicData[],
+    setpopup: React.Dispatch<React.SetStateAction<boolean>>;
+    setImgTopic: React.Dispatch<React.SetStateAction<string>>
+    setNameTopic: React.Dispatch<React.SetStateAction<string>>
+}
+const LeftLearn: React.FC<propData> = ({ dataTopic, setpopup, setImgTopic, setNameTopic }) => {
     const [active, setActive] = useState(true)
-    const [isTopic, setTopic] = useState(false)
     const navigater = useNavigate()
-
-    const handleRouter = (name: string) => {
+    const handleRouter = (name: string, imgTopic: string, nameTopic: string, status: boolean) => {
+        if (!status) {
+            setpopup(true)
+            setImgTopic(imgTopic)
+            setNameTopic(nameTopic)
+            return
+        }
         navigater(`/topic/${name}/learn`)
     }
+    const beginner = dataTopic?.filter((topic: TopicData) => topic.lever === "Sơ cấp")
+    const intermediate = dataTopic?.filter((topic: TopicData) => topic.lever === "Trung cấp")
+    const advanced = dataTopic?.filter((topic: TopicData) => topic.lever === "Cao cấp")
 
     return (
         <div className={` wp-learn-left ${active ? "isOpen " : "isClose"}`}>
@@ -37,30 +45,31 @@ const LeftLearn: React.FC = () => {
                     <AiOutlineMenu className="menu-icon" />
                 </div>
             </div>
-            {beginner?.map((item: any) => (
-                <div onClick={() => handleRouter(item.name)} className={`item-topic `} key={item.id} >
+            {beginner?.map((item: TopicData) => (
+                <div onClick={() => handleRouter(item.name, item.image, item.name, item.status_beginner)} className={`item-topic `} key={item.id} >
                     <p className="item-topic-name">{item.name}</p>
                     <div className="wp-img-topic">
-                        <img src={item.image} alt="" className="img-topic" />
+                        <img src={item.image} alt="" className={`img-topic ${item.status_beginner ? "" : "isTopic"}`} />
                     </div>
                 </div>
             ))}
-            {intermediate?.map((item: any) => (
-                <div onClick={() => handleRouter(item.name)} className={`item-topic `} key={item.id} >
+            {intermediate?.map((item: TopicData) => (
+                <div onClick={() => handleRouter(item.name, item.image, item.name, item.status_intermediate)} className={`item-topic `} key={item.id} >
                     <p className="item-topic-name">{item.name}</p>
                     <div className="wp-img-topic">
-                        <img src={item.image} alt="" className="img-topic" />
+                        <img src={item.image} alt="" className={`img-topic ${item.status_intermediate ? "" : "isTopic"}`} />
                     </div>
                 </div>
             ))}
-            {advanced?.map((item: any) => (
-                <div onClick={() => handleRouter(item.name)} className={`item-topic `} key={item.id} >
+            {advanced?.map((item: TopicData) => (
+                <div onClick={() => handleRouter(item.name, item.image, item.name, item.status_intermediate)} className={`item-topic `} key={item.id} >
                     <p className="item-topic-name">{item.name}</p>
                     <div className="wp-img-topic">
-                        <img src={item.image} alt="" className="img-topic" />
+                        <img src={item.image} alt="" className={`img-topic ${item.status_advanced ? "" : "isTopic"}`} />
                     </div>
                 </div>
             ))}
+           
 
         </div>
     )

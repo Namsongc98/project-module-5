@@ -4,7 +4,6 @@ import { TopicService } from './topic.service';
 import { TopicController } from './topic.controller';
 import { Topic } from './entity/topic';
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([Topic])],
   controllers: [TopicController],

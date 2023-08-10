@@ -10,7 +10,6 @@ export class TopicService {
     constructor(
         @InjectRepository(Topic)
         private topicRepository: Repository<Topic>) { }
-
     // Thêm chủ đề
     async insertTopic(insertTopic: topicType): Promise<any> {
         try {
@@ -117,36 +116,6 @@ export class TopicService {
         }
     }
 
-    // async updateStatus(idUser): Promise<any> {
-    //     try {
-    //         const result = await this.topicRepository.find({
-    //             where: {
-    //                 userId: idUser
-    //             }
-    //         })
-    //         if (result.length > 0) return
-    //         const dataTopic = await this.topicRepository.find({})
-    //         dataTopic.map(async (topic: Topic) => {
-    //             const newTopic = await this.topicRepository.create({
-    //                 name: topic.name,
-    //                 lever: topic.lever,
-    //                 target: topic.target,
-    //                 image: topic.image,
-    //                 status: topic.status,
-    //                 userId: idUser
-    //             })
-    //             await this.topicRepository.save(newTopic)
-    //         })
-    //         await this.topicRepository
-    //             .createQueryBuilder()
-    //             .update(Topic)
-    //             .set({ status: true })
-    //             .where("lever = :lever AND userId = :userId", { lever: "Sơ cấp", userId: idUser })
-    //             .execute()
-    //         return
+   
 
-    //     } catch (error) {
-    //         throw new BadRequestException(error)
-    //     }
-    // }
 }

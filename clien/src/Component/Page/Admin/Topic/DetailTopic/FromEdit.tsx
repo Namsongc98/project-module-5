@@ -1,7 +1,7 @@
 import React, { FormEvent, useEffect, useState, Dispatch } from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify'
-import {axiosPrivate} from '../../../../../config/ConfigApi'
+import { axiosPrivate } from '../../../../../config/ConfigApi'
 import { useSelector } from 'react-redux'
 import { getDataQuestion } from '../../../../../Reducer/Slice/Question'
 import { IQuestion } from '../../../../../type/Topic'
@@ -97,10 +97,10 @@ const FromEdit: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
                         <label htmlFor="lever" className='form-label-select'>Câu trả lời đúng là:<br />
                             <select name='lever' id='lever' className='form-select' defaultValue={questionItem?.answer} onChange={(e) => setAnswer(e.target.value)} >
                                 <option>--Câu trả lời đúng--</option>
-                                <option value="option_a">A</option>
-                                <option value="option_b">B</option>
-                                <option value="option_c">C</option>
-                                <option value="option_d">D</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
                             </select>
                         </label>
                     </div>

@@ -7,8 +7,6 @@ export class StatusController {
     constructor(
         private serviceStatus: StatusService
     ) { }
-
-
     @Get("/topic/:id")
     async getTopic(@Param("id") id: string): Promise<any> {
         return await this.serviceStatus.getTopic(id)

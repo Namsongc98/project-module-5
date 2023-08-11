@@ -90,10 +90,10 @@ const FormQuestion = ({ setPopup }: { setPopup: React.Dispatch<React.SetStateAct
                         <label htmlFor="lever" className='form-label-select'>Câu trả lời đúng là:<br />
                             <select name='lever' id='lever' className='form-select' onChange={(e) => setAnswer(e.target.value)} >
                                 <option>--Câu trả lời đúng--</option>
-                                <option value="option_a">A</option>
-                                <option value="option_b">B</option>
-                                <option value="option_c">C</option>
-                                <option value="option_d">D</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="C">C</option>
+                                <option value="D">D</option>
                             </select>
                         </label>
                     </div>

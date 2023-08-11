@@ -6,6 +6,8 @@ import { axiosPrivate } from '../../../../config/ConfigApi'
 import { TopicData } from '../../../../type/Topic'
 import { useSelector } from 'react-redux'
 import { getLogin } from '../../../../Reducer/Slice/UserSlice'
+import { AiFillHome } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 const Learn: React.FC = () => {
     const currenUser = useSelector(getLogin)
@@ -29,9 +31,12 @@ const Learn: React.FC = () => {
     }, [])
 
     return (
-        <div className='flex relative '>
+        <div className='flex relative h-screen'>
             <LeftLearn dataTopic={dataTopic} setpopup={setpopup} setImgTopic={setImgTopic} setNameTopic={setNameTopic} />
             <RightLearn dataTopic={dataTopic} />
+            <Link to="/" className="back-home">
+                <AiFillHome />
+            </Link>
             {popup && <div className='PopupTopic'>
                 <div className="contenTopic">
                     <div className="wp-imgTopic">

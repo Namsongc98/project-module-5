@@ -27,7 +27,6 @@ const LeftTopic: React.FC = () => {
             throw new Error(error)
         }
     }
-    console.log(dataTopic)
     useEffect(() => {
         getTopic()
     }, [])

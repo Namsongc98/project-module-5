@@ -4,7 +4,7 @@ import { Public, Private, PrivateUser } from './Router'
 import DefaultPublic from './Component/Layout'
 import Admin from './Component/Page/Admin'
 
-import React from 'react'
+import React, { Fragment } from 'react'
 import { PrivateRouter } from './Router/PrivateRouter'
 import NotFound from './Component/Page/NotFond/NotFound'
 import Topic from './Component/Page/Topic/Topic'
@@ -26,11 +26,11 @@ const App: React.FC = () => {
                   <Page />
                 </Layout>} />)
             })}
-            
+
             <Route path="*" element={<NotFound />} />
             <Route element={<PrivateUserRouter />}>
               {PrivateUser?.map((route, index) => {
-                const Layout = DefauLayoutUser
+                const Layout = route.layout ? DefauLayoutUser : Fragment
                 const Page = route.component
                 return (<Route key={index} path={route.path} element={
                   <Layout>

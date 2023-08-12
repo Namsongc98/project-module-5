@@ -14,9 +14,9 @@ type TopicData = {
   lever: string;
   name: string;
   poiter: number;
-  status_advanced: boolean;
+  status_advanced: number | boolean;
   status_beginner: boolean;
-  status_intermediate: boolean;
+  status_intermediate: number | boolean;
   target: string;
   topicId: number;
   userId: string;

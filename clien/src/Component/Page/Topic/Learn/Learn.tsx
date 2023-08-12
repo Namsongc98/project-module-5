@@ -12,15 +12,14 @@ import { Link } from 'react-router-dom'
 const Learn: React.FC = () => {
     const currenUser = useSelector(getLogin)
     const useId = currenUser.id
-    const [dataTopic, setDataTopic] = useState<TopicData[]>([])
+    const [dataStatusTopic, setDataStatusTopic] = useState<TopicData[]>([])
     const [popup, setpopup] = useState(false)
     const [imgTopic, setImgTopic] = useState("")
     const [nameTopic, setNameTopic] = useState("")
-
     const getTopic = async () => {
         try {
             const response = await axiosPrivate.get(`/status/topic/${useId}`)
-            setDataTopic(response.data)
+            setDataStatusTopic(response.data)
             return response.data
         } catch (error) {
             throw new Error(error)
@@ -29,11 +28,13 @@ const Learn: React.FC = () => {
     useEffect(() => {
         getTopic()
     }, [])
+    
+
 
     return (
         <div className='flex relative h-screen'>
-            <LeftLearn dataTopic={dataTopic} setpopup={setpopup} setImgTopic={setImgTopic} setNameTopic={setNameTopic} />
-            <RightLearn dataTopic={dataTopic} />
+            <LeftLearn dataStatusTopic={dataStatusTopic} setpopup={setpopup} setImgTopic={setImgTopic} setNameTopic={setNameTopic} />
+            <RightLearn dataStatusTopic={dataStatusTopic} />
             <Link to="/" className="back-home">
                 <AiFillHome />
             </Link>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import "../Learn.scss"
-import { useNavigate, useParams } from 'react-router-dom'
-import { axiosPrivate } from '../../../../../config/ConfigApi'
+import { useParams } from 'react-router-dom'
+import { axiosPrivate, axiosPublic } from '../../../../../config/ConfigApi'
 import { TopicData } from '../../../../../type/Topic'
+import { useAppSelector } from '../../../../../Store/Store'
+import { getLogin } from '../../../../../Reducer/Slice/UserSlice'
 type propData = {
-    dataTopic: TopicData[]
+    dataStatusTopic: TopicData[]
 }
 type dataQuestion = {
     answer: string;
@@ -19,15 +21,23 @@ type dataQuestion = {
     status: number;
     topicId: number;
 }
-const RightLearn: React.FC<propData> = () => {
+const RightLearn: React.FC<propData> = ({ dataStatusTopic }) => {
     const [currenQuestion, setCurrenQuestion] = useState(0)
     const [select, setSelect] = useState("")
     const [tonggle, setTonggle] = useState(0)
     const [className, setClassName] = useState("")
-    // const [selectD, setSelectD] = useState("")
     const [questions, setquestion] = useState<dataQuestion[]>([])
+
+    //lấy user login
+    const currenUser = useAppSelector(getLogin)
+    const idUser = currenUser.id
     const { id } = useParams()
 
+    // tìm StatusTopic theo tên
+    const statusTopic = dataStatusTopic.find((topic) => topic.name === id)
+    // tìm dataStatusTopic theo theo lever
+    const arrLeverTopic = dataStatusTopic.filter((topic) => topic.lever === statusTopic?.lever)
+    // lấy data câu hỏi theo tên chủ đề
     const getQuestion = async () => {
         try {
             const response = await axiosPrivate.get(`/question/getnamequestion/${id}`)
@@ -36,15 +46,15 @@ const RightLearn: React.FC<propData> = () => {
             throw new Error(error)
         }
     }
-
     useEffect(() => {
         getQuestion()
     }, [id])
 
+    // điều kiện trả lời
+    const ckeckEnd = currenQuestion === questions.length - 1
     const handleAnswer = (select: string) => {
+        const checkAnswer = select === questions[currenQuestion]?.answer
         setSelect(select)
-        const checkAnswer = select === questions[currenQuestion].answer
-        const ckeckEnd = currenQuestion === questions.length - 1
         if (ckeckEnd && checkAnswer) {
             setClassName("isTrue");
             setTonggle(2)
@@ -60,21 +70,56 @@ const RightLearn: React.FC<propData> = () => {
         }
     }
 
+    // chuyển câu hỏi
     const handleNext = () => {
         setCurrenQuestion(currenQuestion + 1)
         setClassName("")
         setTonggle(0)
     }
 
+    // update data status nếu user vượt quá các câu hỏi trong phần topic
+    const lastLeverTopic = arrLeverTopic[arrLeverTopic.length - 1]?.name === id
+    const idStatus = statusTopic?.id
+    const idTopic = statusTopic?.topicId
+    // hàm tính tổng điểm 
+    const addPoin = async (idStatus: number, idTopic: number) => {
+        const updateStatus = { idStatus, idTopic }
+        await axiosPublic.put('/status/topic/', updateStatus)
+    }
+
+    // hàm next topic
+    const currenLever = statusTopic?.lever
+    const nextTopic = async (idUser: string, currenLever: string) => {
+        const statusUpdate = {
+            idUser, currenLever
+        }
+        console.log("first")
+        await axiosPublic.put("/status/nexttopic", statusUpdate)
+
+    }
     useEffect(() => {
-        
-        return () => {
+        if (tonggle === 2 && ckeckEnd) {
+            addPoin(idStatus!, idTopic!)
+        }
+        if (tonggle === 2 && lastLeverTopic) {
+            nextTopic(idUser, currenLever!)
+        }
+    }, [tonggle, id])
+
+
+    // clearn 
+    useEffect(() => {
+        const clearnCode = () => {
             setClassName("")
             setTonggle(0)
             setCurrenQuestion(0)
         }
-    }, [id])
 
+        return clearnCode()
+    }, [id, dataStatusTopic])
+
+
+    //  điều kiện button 
     let buttonElement;
     if (tonggle === 1) {
         buttonElement = <button className="isTrue item-btn" onClick={handleNext}>Tiếp theo</button>;
@@ -116,17 +161,7 @@ const RightLearn: React.FC<propData> = () => {
                 </div>
             </div>
             <div className={`wp-btn `}  >
-                {buttonElement
-                    // tonggle === 1 ?
-                    //     <button className="isTrue" onClick={handleNext}>Tiếp theo</button> :
-                    //     tonggle === 2 ?
-                    //         <button className="isTrue" onClick={handleNextTopic}>Qua chủ đề mới</button> :
-                    //         tonggle === 0 ?
-
-                    //             <button disabled className="">Tiếp theo</button> :
-
-                    //             <button disabled className="">Qua chủ đề mới</button>
-                }
+                {buttonElement}
             </div>
         </div >
     )

@@ -7,7 +7,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryColumn, Primary
 export class Status {
 
     @PrimaryGeneratedColumn()
-    id:number;
+    id: number;
 
     @Column("boolean", { default: true })
     status_beginner: boolean;
@@ -27,11 +27,11 @@ export class Status {
     @Column("int", { nullable: true })
     topicId: number;
 
-    @ManyToOne(() => User, (user)=>user.statusTopic,{onDelete:"CASCADE"})
+    @ManyToOne(() => User, (user) => user.statusTopic, { onDelete: "CASCADE" })
     @JoinColumn({ name: "userId" })
     user: User;
 
-    @ManyToOne(() => Topic,(topic)=>topic.status,{onDelete:"CASCADE"})
+    @ManyToOne(() => Topic, (topic) => topic.status, { onDelete: "CASCADE" })
     @JoinColumn({ name: "topicId" })
     topic: Topic;
 }

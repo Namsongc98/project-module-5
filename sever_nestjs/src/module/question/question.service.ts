@@ -25,7 +25,7 @@ export class QuestionService {
             .getRawMany();
     }
 
-   
+
 
     // lấy câu hỏi theo id
     async selectQuestion(id: number): Promise<TypeTopicQuestion> {
@@ -111,5 +111,13 @@ export class QuestionService {
         } catch (error) {
             throw new BadRequestException(error)
         }
+    }
+
+    async countQuestionTopic(idTopic: number): Promise<number> {
+        return this.questionRepository.count({
+            where: {
+                topicId: idTopic
+            }
+        })
     }
 }

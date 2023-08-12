@@ -2,7 +2,7 @@ import { Question } from 'src/module/question/entity/question';
 import { Status } from 'src/module/status/entity/Status';
 import { User } from 'src/module/users/entity/user';
 
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity({ name: 'topic' })
 export class Topic {
@@ -20,6 +20,8 @@ export class Topic {
 
   @Column("varchar", { length: 100 })
   image: string;
+
+
 
   @OneToMany(() => Question, (question) => question.topic, { cascade: true })
   questions: Question[];

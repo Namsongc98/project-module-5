@@ -8,12 +8,7 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     Column,
-    ManyToMany,
     OneToMany,
-    JoinTable,
-    PrimaryColumn,
-    OneToOne,
-
 } from 'typeorm';
 import { CreateUserDto } from '../dto/CreateUser.dto';
 import { Status } from 'src/module/status/entity/Status';

@@ -8,15 +8,15 @@ import beginnerImg from "../../../../../assets/img/ic_beginner.webp"
 import interImg from "../../../../../assets/img/ic_intermediate.webp"
 import advanImg from "../../../../../assets/img/ic_advanced.webp"
 import { useAppSelector } from '../../../../../Store/Store'
-import { getLogin } from '../../../../../Reducer/Slice/UserSlice'
 import { getProfile } from '../../../../../Reducer/Slice/Profile'
 type propData = {
     dataStatusTopic: TopicData[],
-    setpopup: React.Dispatch<React.SetStateAction<boolean>>;
-    setImgTopic: React.Dispatch<React.SetStateAction<string>>
-    setNameTopic: React.Dispatch<React.SetStateAction<string>>
+    setpopup: React.Dispatch<React.SetStateAction<boolean>>,
+    setImgTopic: React.Dispatch<React.SetStateAction<string>>,
+    setNameTopic: React.Dispatch<React.SetStateAction<string>>,
+    totalcoin: number
 }
-const LeftLearn: React.FC<propData> = ({ dataStatusTopic, setpopup, setImgTopic, setNameTopic }) => {
+const LeftLearn: React.FC<propData> = ({ dataStatusTopic, setpopup, setImgTopic, setNameTopic, totalcoin }) => {
     const currenUser = useAppSelector(getProfile)
     const [active, setActive] = useState(true)
     const navigater = useNavigate()
@@ -29,6 +29,7 @@ const LeftLearn: React.FC<propData> = ({ dataStatusTopic, setpopup, setImgTopic,
         }
         navigater(`/topic/${name}/learn`)
     }
+
     const beginner = dataStatusTopic?.filter((topic: TopicData) => topic.lever === "Sơ cấp")
     const intermediate = dataStatusTopic?.filter((topic: TopicData) => topic.lever === "Trung cấp")
     const advanced = dataStatusTopic?.filter((topic: TopicData) => topic.lever === "Cao cấp")
@@ -45,7 +46,7 @@ const LeftLearn: React.FC<propData> = ({ dataStatusTopic, setpopup, setImgTopic,
                     <div className="wp-exp">
                         <p className="">exp</p>
                     </div>
-                    <p className="poin-profile">129</p>
+                    <p className="poin-profile">{totalcoin}</p>
                 </div>
                 <div className="navbar-active" onClick={() => setActive(!active)}>
                     <AiOutlineMenu className="menu-icon" />

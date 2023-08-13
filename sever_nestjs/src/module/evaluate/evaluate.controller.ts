@@ -14,7 +14,7 @@ export class EvaluateController {
 
     @Get("getevaluatelimit")
     async getevaluatelimit(): Promise<any> {
-        return this.serviceEvaluate.insertLimit()
+        return this.serviceEvaluate.selectLimit()
     }
 
     @Get("count")

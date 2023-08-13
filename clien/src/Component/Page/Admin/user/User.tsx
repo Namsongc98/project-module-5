@@ -64,26 +64,8 @@ const ManagerUser: React.FC = () => {
       throw new Error(error)
     }
   }
-  // khóa người dùng
-  const handleLock = async (idUser: string) => {
-    try {
-      await axiosPrivate.put(`users/putlock/${idUser}`)
-      paginationUser()
-    } catch (error) {
-      throw new Error(error)
-    }
 
-  }
-
-  // mở khóa người dùng
-  const handleUnlock = async (idUser: string) => {
-    try {
-      await axiosPrivate.put(`users/putunlock/${idUser}`)
-      paginationUser()
-    } catch (error) {
-      throw new Error(error)
-    }
-  }
+  
 
   // đếm người dùng 
   const handleCountUser = async () => {
@@ -231,13 +213,8 @@ const ManagerUser: React.FC = () => {
                     }
                   </td>
                   <td className='flex gap-2 items-center'>
-                    <p className='bg-blue-600' onClick={() => handelDetail(user.id)}>Chi tiết</p>
+                    <p className='bg-blue-600 ' onClick={() => handelDetail(user.id)}>Chi tiết</p>
                     <p className='bg-red-600' onClick={() => handleDelete(user.id)}>xóa</p>
-                    {user?.status ?
-                      <AiFillUnlock className="text-lg text-blue-600" onClick={() => handleLock(user.id)} />
-                      :
-                      <AiFillLock className="text-lg text-red-600" onClick={() => handleUnlock(user.id)} />
-                    }
                   </td>
                 </tr>
               ))}

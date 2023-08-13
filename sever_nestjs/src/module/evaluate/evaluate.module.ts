@@ -9,9 +9,10 @@ import { User } from '../users/entity/user';
 
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Evaluate,User])],
+  imports: [TypeOrmModule.forFeature([Evaluate, User])],
   controllers: [EvaluateController],
-  providers: [EvaluateService]
+  providers: [EvaluateService],
+  exports: [EvaluateService]
 })
 export class EvaluateModule { }
 

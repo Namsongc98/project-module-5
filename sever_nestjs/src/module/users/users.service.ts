@@ -1,3 +1,4 @@
+import { StatusService } from './../status/status.service';
 import {
   BadRequestException,
   Injectable,
@@ -9,13 +10,15 @@ import * as bcrypt from 'bcrypt';
 import { createUserBody } from 'src/module/users/type/user';
 import { User } from './entity/user';
 import { Profile } from '../profile/entity/profile';
+
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
     @InjectRepository(Profile)
-    private profileRepository: Repository<Profile>
+    private profileRepository: Repository<Profile>,
+    private statusService: StatusService
   ) { }
 
   // find Email for guard 
@@ -31,7 +34,7 @@ export class UsersService {
   async findProfile(userDetail: createUserBody) {
     return await this.profileRepository.findOneBy({ userId: userDetail.id })
   }
-    
+
   // register 
   async createUser(userDetail: createUserBody) {
     try {
@@ -85,7 +88,6 @@ export class UsersService {
       password: newPassword
     }
     return await this.userRepository.update(updateUser.id, newUser)
-
   }
 
   // khóa người dùng
@@ -122,5 +124,28 @@ export class UsersService {
   // xóa người dùng
   async deleteUser(id: string): Promise<void> {
     await this.userRepository.delete(id)
+  }
+  // lấy chi tiết người dùng
+  async selectUserDetail(idUser: string): Promise<any> {
+    const profile = await this.profileRepository
+      .createQueryBuilder("profile")
+      .select(["profile.*", "email,role,status"])
+      .innerJoin("profile.user", "user")
+      .where("userId = :userId", { userId: idUser })
+      .getRawOne()
+    console.log(profile)
+    const statusTopic = await this.statusService.getTopic(idUser)
+    const evaluate = await this.userRepository
+      .findOne({
+        relations: {
+          evaluate: true,
+        },
+        where: {
+          evaluate: {
+            userId: idUser
+          }
+        }
+      })
+    return { profile, evaluate, statusTopic }
   }
 }

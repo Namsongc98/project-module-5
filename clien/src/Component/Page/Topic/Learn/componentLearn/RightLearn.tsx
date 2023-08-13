@@ -7,6 +7,8 @@ import { useAppSelector } from '../../../../../Store/Store'
 import { getLogin } from '../../../../../Reducer/Slice/UserSlice'
 type propData = {
     dataStatusTopic: TopicData[]
+    setNextLever: React.Dispatch<React.SetStateAction<boolean>>,
+   
 }
 type dataQuestion = {
     answer: string;
@@ -21,7 +23,7 @@ type dataQuestion = {
     status: number;
     topicId: number;
 }
-const RightLearn: React.FC<propData> = ({ dataStatusTopic }) => {
+const RightLearn: React.FC<propData> = ({ dataStatusTopic, setNextLever }) => {
     const [currenQuestion, setCurrenQuestion] = useState(0)
     const [select, setSelect] = useState("")
     const [tonggle, setTonggle] = useState(0)
@@ -84,17 +86,23 @@ const RightLearn: React.FC<propData> = ({ dataStatusTopic }) => {
     // hàm tính tổng điểm 
     const addPoin = async (idStatus: number, idTopic: number) => {
         const updateStatus = { idStatus, idTopic }
-        await axiosPublic.put('/status/topic/', updateStatus)
+        try {
+            await axiosPublic.put('/status/topic/', updateStatus)
+        } catch (error) {
+            throw new Error(error)
+        }
     }
 
     // hàm next topic
     const currenLever = statusTopic?.lever
     const nextTopic = async (idUser: string, currenLever: string) => {
-        const statusUpdate = {
-            idUser, currenLever
+        const statusUpdate = { idUser, currenLever }
+        try {
+            await axiosPublic.put("/status/nexttopic", statusUpdate)
+            setNextLever(true)
+        } catch (error) {
+            throw new Error(error)
         }
-        console.log("first")
-        await axiosPublic.put("/status/nexttopic", statusUpdate)
 
     }
     useEffect(() => {
@@ -114,7 +122,6 @@ const RightLearn: React.FC<propData> = ({ dataStatusTopic }) => {
             setTonggle(0)
             setCurrenQuestion(0)
         }
-
         return clearnCode()
     }, [id, dataStatusTopic])
 

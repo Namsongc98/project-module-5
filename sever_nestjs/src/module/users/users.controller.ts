@@ -61,4 +61,9 @@ export class UsersController {
     console.log(id)
     return await this.userService.deleteUser(id)
   }
+
+  @Get("/userdetail/:id")
+  selectUserDetail(@Param("id") id: string) {
+      return this.userService.selectUserDetail(id)
+  }
 }

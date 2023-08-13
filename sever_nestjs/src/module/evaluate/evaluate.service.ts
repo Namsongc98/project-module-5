@@ -1,8 +1,7 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { Repository, createQueryBuilder } from 'typeorm';
-import { UsersService } from '../users/users.service';
+import { Repository } from 'typeorm';
 import { Evaluate } from './entity/evaluate';
 import { User } from '../users/entity/user';
 
@@ -20,7 +19,6 @@ export class EvaluateService {
 
     // tạo đánh giá
     async postEvaluate(detailEmail: EvaluateType): Promise<void> {
-        console.log(detailEmail)
         const isEmail = await this.userRepository.findOne({
             where: {
                 email: detailEmail.email,
@@ -37,11 +35,11 @@ export class EvaluateService {
             } as EvaluateType)
             await this.evaluateRepository.save(result)
         } catch (error) {
-            throw new Error(error);
+            throw new BadRequestException(error);
         }
     }
-
-    async insertLimit() {
+    //lấy data đánh giá
+    async selectLimit() {
         try {
             return await this.userRepository
                 .query(`Select e.*, p.avatar,p.firstName,p.lastName  
@@ -51,15 +49,16 @@ export class EvaluateService {
                         where rating >= 4 limit 5;`)
 
         } catch (error) {
-            console.log(error)
+            throw new BadRequestException(error);
         }
     }
 
+    //dếm đánh giá
     async countEvaluate(): Promise<number> {
         const result = await this.evaluateRepository
             .createQueryBuilder("evaluate")
             .getCount()
         return result
 
-    }
+    } 
 }

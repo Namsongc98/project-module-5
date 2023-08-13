@@ -5,11 +5,13 @@ import { UsersService } from './users.service';
 import { User } from './entity/user';
 import { Profile } from '../profile/entity/profile';
 
+import { StatusModule } from '../status/status.module';
+
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User,Profile])],
+  imports: [StatusModule, TypeOrmModule.forFeature([User, Profile])],
   controllers: [UsersController],
   providers: [UsersService],
   exports: [UsersService]
 })
-export class UsersModule {}
+export class UsersModule { }

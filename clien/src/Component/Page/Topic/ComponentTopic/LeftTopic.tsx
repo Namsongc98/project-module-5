@@ -7,35 +7,25 @@ import { TopicData } from '../../../../type/Topic'
 import { useNavigate } from 'react-router-dom'
 import { axiosPrivate } from '../../../../config/ConfigApi'
 import { getLogin } from '../../../../Reducer/Slice/UserSlice'
+type dataProp = {
+    dataTopic: TopicData[]
+}
 
-const LeftTopic: React.FC = () => {
+const LeftTopic: React.FC<dataProp> = ({ dataTopic }) => {
     const [popup, setpopup] = useState(false)
-    const [dataTopic, setDataTopic] = useState<TopicData[]>([])
+
     const [imgTopic, setImgTopic] = useState("")
     const [nameTopic, setNameTopic] = useState("")
-    const currenUser = useSelector(getLogin)
-    const navigate = useNavigate()
-    const useId = currenUser.id
 
-    // get topic
-    const getTopic = async () => {
-        try {
-            const response = await axiosPrivate.get(`/status/topic/${useId}`)
-            setDataTopic(response.data)
-            return response.data
-        } catch (error) {
-            throw new Error(error)
-        }
-    }
-    useEffect(() => {
-        getTopic()
-    }, [])
+    const navigate = useNavigate()
+
+
 
     const dataBeginer = dataTopic?.filter((topic) => topic.lever === "Sơ cấp")
     const dataIntermediate = dataTopic?.filter((topic) => topic.lever === "Trung cấp")
     const dataAdvanced = dataTopic?.filter((topic) => topic.lever === "Cao cấp")
 
-    const handlTopic = (imgTopic: string, nameTopic: string, status: boolean) => {
+    const handlTopic = (imgTopic: string, nameTopic: string, status: boolean | number) => {
         if (!status) {
             setpopup(true)
             setImgTopic(imgTopic)

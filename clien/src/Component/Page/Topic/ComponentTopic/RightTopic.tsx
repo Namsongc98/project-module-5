@@ -9,7 +9,23 @@ import imgLogo from "../../../../assets/img/7-meo-hoc-tieng-anh-huu-ich-cho-nguo
 import imgInhome from "../../../../assets/img/9-cach-giup-ban-hoc-tieng-anh-giao-tiep-tai-nha.webp"
 import imgVerb from "../../../../assets/img/chia-dong-tu-tieng-anh-cac-quy-tac-co-ban-can-biet.webp"
 import { BsFillStarFill } from "react-icons/bs/index"
-const RightTopic: React.FC = () => {
+import { TopicData } from '../../../../type/Topic'
+
+type dataProp = {
+    dataTopic: TopicData[]
+}
+const RightTopic: React.FC<dataProp> = ({ dataTopic }) => {
+
+
+    const lengthTopic = dataTopic.length
+
+    const totalPoint = dataTopic.reduce((topic, currentopic) => {
+        return topic + currentopic.poiter
+    }, 0)
+
+    const lengthcompete = dataTopic.filter((topic) => topic.poiter > 0)
+
+    console.log(lengthcompete)
     return (
         <div className='w-[40%] flex flex-col gap-5'>
             <div className="p-4 border-solid border-slate-200 border-2 rounded-2xl ">
@@ -28,20 +44,20 @@ const RightTopic: React.FC = () => {
                 <p className="font-semibold text-xl">Tiến độ học</p>
                 <div className="font-semibold text-lg flex justify-between my-3">
                     <p className="opacity-50">Tổng kinh nghiệm</p>
-                    <p className="text-yellow-300">14 exp</p>
+                    <p className="text-yellow-300">{totalPoint} exp</p>
                 </div>
                 <div className="font-semibold text-lg flex justify-between my-3">
                     <p className="opacity-50">Chủ đề đã hoàn thành</p>
-                    <p className="text-blue-500">0/30</p>
+                    <p className="text-blue-500">{lengthcompete.length}/{lengthTopic}</p>
                 </div>
-                <div className="font-semibold text-lg flex justify-between my-3">
+                {/* <div className="font-semibold text-lg flex justify-between my-3">
                     <p className="opacity-50">Bài kiểm tra đã hoàn thành</p>
                     <p className="text-red-500">0/3</p>
-                </div>
+                </div> */}
             </div>
             <div className="p-4 border-solid border-slate-200 border-2 rounded-2xl">
                 <p className="font-semibold text-xl">Tải ứng dụng trên Android</p>
-                <div className=" shadow-sm hover:shadow-md hover:scale-[101%] p-4 border-solid border-slate-200 border-[1px] rounded-2xl m-2 flex justify-between items-center">
+                <div className=" shadow-sm hover:shadow-md hover:scale-[101%] gap-1 p-3 border-solid border-slate-200 border-[1px] rounded-2xl m-2 flex justify-between items-center">
                     <div className="">
                         <img src={imglogo} alt="" className='w-12 h-12' />
                     </div>
@@ -67,7 +83,7 @@ const RightTopic: React.FC = () => {
                 </div>
                 <div className="flex flex-col gap-4 mt-4">
                     <div className="flex gap-2 items-center ">
-                       
+
                         <img src={imgLogo} alt="" className='w-14 h-14 object-cover rounded ' />
                         <p className=" font-medium">Khám phá lộ trình học tiềng Anh cho người mất gốc</p>
                     </div>
@@ -80,7 +96,7 @@ const RightTopic: React.FC = () => {
                         <p className="font-medium">Chia động từ Tiếng Anh: Các quy tắc cơ bản cần biết</p>
                     </div>
                 </div>
-               
+
             </div>
         </div>
     )

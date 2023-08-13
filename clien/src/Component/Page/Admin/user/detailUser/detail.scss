@@ -6,11 +6,11 @@
     .wp-profile-left {
       box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
       border-radius: 8px;
-      width: 30%;
+      width: 40%;
       background-color: white;
-      padding: 50px;
+      padding: 20px auto;
       .wp-avatar {
-        margin: 0 auto;
+        margin: 40px auto auto auto;
         width: 100px;
         height: 100px;
         border-radius: 50%;
@@ -21,6 +21,41 @@
           object-fit: cover;
         }
       }
+      .wp-lock {
+        margin: 20px auto;
+        width: 70%;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        .lock {
+          width: 100px;
+          height: 30px;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .openKey {
+          background-color: #2563eb;
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+        .unlock {
+          background-color: #dc2626;
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+        .evaluete {
+          border: 2px solid #2563eb;
+          color: #2563eb;
+          &:hover {
+            color: white;
+            background-color: #2563eb;
+          }
+        }
+      }
       .wp-text-profile {
         text-align: center;
         margin: 0 auto;
@@ -29,11 +64,15 @@
           opacity: 70;
         }
         .profile-name {
-          font-size: 1.6rem;
+          font-size: 1.3rem;
           font-weight: 700;
+          opacity: 0.7;
         }
         .profile-email {
-          font-size: 1.2rem;
+          font-size: 1rem;
+          font-weight: 500;
+          opacity: 0.5;
+          padding: 10px;
         }
       }
     }
@@ -47,11 +86,11 @@
         width: 100%;
         .tbody-profile {
           .tr-profile {
-            opacity: 0.7;
             .td-profile {
+              opacity: 0.7;
               font-weight: 500;
-              font-size: 1.1rem;
-              padding: 20px 10px;
+              font-size: 1rem;
+              padding: 10px 10px;
               width: 25%;
             }
           }
@@ -65,6 +104,7 @@
     display: flex;
     gap: 30px;
     .wp-beginner {
+      box-shadow: rgba(0, 0, 0, 0.1) 4px 4px 4px;
       padding: 10px;
       width: 35%;
       background-color: white;
@@ -72,23 +112,23 @@
       .wp-lever {
         padding: 30px;
         .wp-image-lever {
-          width: 80px;
-          height: 80px;
+          width: 60px;
+          height: 60px;
           margin: 0 auto;
           overflow: hidden;
           border-radius: 50%;
           .img-lever {
             object-fit: cover;
-            width: 80px;
-            height: 80px;
+            width: 60px;
+            height: 60px;
           }
         }
         .lever-title {
           text-align: center;
           margin-top: 10px;
-          font-size: 20px;
+          font-size: 1.1rem;
           font-weight: 600;
-          opacity: 0.8;
+          opacity: 0.7;
         }
       }
       .wp-list-topic {
@@ -114,18 +154,22 @@
               }
             }
             .wp-text-topic {
+              width: 150px;
               .name-topic {
-                font-size: 18px;
                 font-weight: 600;
                 opacity: 0.8;
               }
               .target-topic {
-                font-size: 1rem;
+                font-size: 0.8rem;
                 font-weight: 500;
                 opacity: 0.6;
               }
             }
           }
+        }
+        .poin-topic {
+          color: #fde047;
+          font-weight: 600;
         }
       }
     }

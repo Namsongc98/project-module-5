@@ -21,8 +21,6 @@ export class Topic {
   @Column("varchar", { length: 100 })
   image: string;
 
-
-
   @OneToMany(() => Question, (question) => question.topic, { cascade: true })
   questions: Question[];
 

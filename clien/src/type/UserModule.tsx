@@ -10,7 +10,7 @@ interface CurrenUser {
   email: string
   password: string
   role: string | undefined
-  point: number
+  status: number
 }
 
 interface IProfile {
@@ -21,6 +21,9 @@ interface IProfile {
   phone: string
   avatar: string
   gender: string
+  userId: string
+  role: string
+  status: number
 }
 
 type IDataUser = {
@@ -84,4 +87,13 @@ type IEvaluateLimit = {
   id: string
 }[]
 
-export { NewUser, CurrenUser, RegisterUser, UsersState, IEvaluate, IUseEvaluate, IEvaluateLimit, IDataUser, ITopicState, IProfile }
+type UserEvaluate = {
+  id: string
+  email: string
+  password: string
+  role: string | undefined
+  status: number
+  evaluate: Array<IEvaluate>
+}
+
+export { NewUser, CurrenUser, RegisterUser, UsersState, IEvaluate, IUseEvaluate, IEvaluateLimit, IDataUser, ITopicState, IProfile, UserEvaluate }

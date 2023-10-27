@@ -52,6 +52,7 @@ export class ProfileService {
 
             return result
         } else {
+            console.log(page,limit);
             const result = await this.profileRepository
                 .query(`select u.*, p.firstName, p.lastName, p.avatar 
                         from modules_5.user as u  

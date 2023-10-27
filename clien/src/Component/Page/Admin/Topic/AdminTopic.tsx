@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import "./AdminTopic.scss"
 import PostTopic from './PopupTopic/PostTopic'
-
 import Intermediate from './Component/Intermediate';
 import Advanced from './Component/Advanced';
 import Beginner from './Component/Beginner';
 import { axiosPrivate } from '../../../../config/ConfigApi';
 import { useDispatch } from 'react-redux';
 import { setAllTopic } from '../../../../Reducer/Slice/UseTopic';
-import { MdOutlineTopic, MdTopic } from 'react-icons/md';
-
+import {  MdTopic } from 'react-icons/md';
 const AdminTopic: React.FC = () => {
   const [popup, setPopup] = useState<boolean>(false)
   const dispatch = useDispatch()
@@ -25,8 +23,6 @@ const AdminTopic: React.FC = () => {
     }
     getAllTopic()
   }, [])
-
-
   return (
     <div className='w-full'>
       {popup && <PostTopic propSetPopup={setPopup} />}

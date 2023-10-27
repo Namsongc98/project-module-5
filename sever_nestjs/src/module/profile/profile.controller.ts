@@ -20,17 +20,21 @@ export class ProfileController {
   // đếm frofile
   @Get("count")
   async count(): Promise<any> {
-    return await this.profileService.countProfile()
+    console.log("object");
+          const result = await this.profileService.countProfile()
+          console.log(result);
+    return result
   }
 
   // phan trang + search user join profile
   @Get("users")
-  @UseGuards(AuthGuard)
+   @UseGuards(AuthGuard)
   async pagination(
     @Query("page", ParseIntPipe) page: number,
     @Query("limit", ParseIntPipe) limit: number,
     @Query("email") email: string
   ): Promise<any> {
+    console.log(page,limit);
     return await this.profileService.paginationUser(page, limit, email)
   }
 }

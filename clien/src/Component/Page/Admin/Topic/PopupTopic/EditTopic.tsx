@@ -1,15 +1,13 @@
 import React, { useState, ChangeEvent, useEffect, FormEvent, Dispatch, SetStateAction } from 'react'
 import { WiStars } from 'react-icons/wi'
 import { ToastContainer, toast } from 'react-toastify'
-import { axiosPrivate } from '../../../../../config/ConfigApi'
+import { axiosPrivate, axiosPublic } from '../../../../../config/ConfigApi'
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import '../AdminTopic.scss'
-import { getAllTopic } from '../../../../../Reducer/Slice/UseTopic';
-import { useSelector } from 'react-redux';
 import axios from 'axios';
 interface IPropPopup {
   isToggle: Dispatch<SetStateAction<any>>,
-  idBeginer: number,
+  idBeginer: ITopic,
 }
 interface ITopic {
   id: number
@@ -21,20 +19,20 @@ interface ITopic {
   target: string
 }
 const EditTopic: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
-  const allTopic: Array<ITopic> = useSelector(getAllTopic)
-  const findTopicId: ITopic | undefined = allTopic.find((topic) => topic.id === idBeginer);
-  const [nameTopic, setNameTopic] = useState(findTopicId?.name!);
-  const [targetTopic, setTopicTarget] = useState(findTopicId?.target!);
-  const [leverTopic, setLeverTopic] = useState(findTopicId?.lever);
-  const [imgTopic, setImgTopic] = useState(findTopicId?.image);
-  const [loading, setLoading] = useState(false)
 
-  const [imgTopicView, setImgTopicView] = useState<any>(findTopicId?.image);
+ 
+  const [nameTopic, setNameTopic] = useState(idBeginer?.name);
+  const [targetTopic, setTopicTarget] = useState(idBeginer?.target);
+  const [leverTopic, setLeverTopic] = useState(idBeginer?.lever);
+  const [imgTopic, setImgTopic] = useState(idBeginer?.image);
+  const [loading, setLoading] = useState(false)
+  const [imgTopicView, setImgTopicView] = useState<any>(idBeginer?.image);
+
+
 
   const handlePopupPostTopic = () => {
     isToggle(!idBeginer)
   }
-
   const handelImgTopic = (e: ChangeEvent<HTMLInputElement>): void => {
     if (!e.target.files) return
     const filesImg: any = e.target.files[0];
@@ -48,14 +46,15 @@ const EditTopic: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
     }
   }, [imgTopicView])
 
-  const handleTopic = async (e: FormEvent<HTMLElement>, id: number) => {
+  const handleTopic = async (e: FormEvent<HTMLElement>, id: number | undefined) => {
     e.preventDefault()
     if (!nameTopic || !targetTopic || !leverTopic || !imgTopic) return showToastErrEmpty()
     setLoading(true)
+
     const imgForm = new FormData()
     imgForm.append("file", imgTopic!)
     imgForm.append("upload_preset", "dinoEnglish");
-    const response = await axiosPrivate.post(
+    const response = await axios.post(
       "https://api.cloudinary.com/v1_1/dlb1ac5xw/image/upload",
       imgForm
     )
@@ -66,8 +65,9 @@ const EditTopic: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
       lever: leverTopic,
       image: response.data.secure_url
     }
+    console.log(newTopic);
     try {
-      const response = await axios.put('/topic/puttopic', newTopic)
+      const response = await axiosPrivate.put('/topic/puttopic', newTopic)
       handleReset()
       showToastsuccess()
       setLoading(false)
@@ -98,7 +98,7 @@ const EditTopic: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
 
   return (
     <div className='popup-topic  z-10 '>
-      <form action="" className="form-container-topic bg-white p-5 w-[50%]" encType="multipart/form-data" onSubmit={(e) => handleTopic(e, findTopicId?.id!)}>
+      <form action="" className="form-container-topic bg-white p-5 w-[50%]" encType="multipart/form-data" onSubmit={(e) => handleTopic(e, idBeginer?.id)}>
         <ToastContainer className="text-xs font-medium" />
         <div className="wp-form-left">
           <div className="wp-input">
@@ -123,7 +123,7 @@ const EditTopic: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
             {loading ?
               <div className=' btn-save'><div className='ring-loading'></div></div>
               :
-              <button type='submit' className=' btn-save'>Lưu</button>
+              <button type='submit' className=' btn-save' >Lưu</button>
             }
             <button type='reset' className=' btn-Cancel' onClick={handleReset} >Cancel</button>
           </div>

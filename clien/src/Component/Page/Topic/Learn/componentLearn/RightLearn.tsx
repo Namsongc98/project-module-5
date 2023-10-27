@@ -8,7 +8,6 @@ import { getLogin } from '../../../../../Reducer/Slice/UserSlice'
 type propData = {
     dataStatusTopic: TopicData[]
     setNextLever: React.Dispatch<React.SetStateAction<boolean>>,
-   
 }
 type dataQuestion = {
     answer: string;
@@ -71,7 +70,6 @@ const RightLearn: React.FC<propData> = ({ dataStatusTopic, setNextLever }) => {
             setTonggle(0)
         }
     }
-
     // chuyển câu hỏi
     const handleNext = () => {
         setCurrenQuestion(currenQuestion + 1)

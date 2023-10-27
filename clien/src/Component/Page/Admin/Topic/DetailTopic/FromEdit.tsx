@@ -8,24 +8,23 @@ import { IQuestion } from '../../../../../type/Topic'
 
 interface IPropPopup {
     isToggle: Dispatch<React.SetStateAction<any>>
-    idBeginer: number | undefined,
+    idBeginer: IQuestion,
 }
 const FromEdit: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
-    const dataQuestion: Array<IQuestion> = useSelector(getDataQuestion)
-    const questionItem: IQuestion | undefined = dataQuestion.find((question) => question.id === idBeginer)
-    const [question, setQuestion] = useState(questionItem?.question)
-    const [optionA, setOptionA] = useState(questionItem?.option_a)
-    const [optionB, setOptionB] = useState(questionItem?.option_b)
-    const [optionC, setOptionC] = useState(questionItem?.option_c)
-    const [optionD, setOptionD] = useState(questionItem?.option_d)
-    const [answer, setAnswer] = useState(questionItem?.answer)
+
+    const [question, setQuestion] = useState(idBeginer?.question)
+    const [optionA, setOptionA] = useState(idBeginer?.option_a)
+    const [optionB, setOptionB] = useState(idBeginer?.option_b)
+    const [optionC, setOptionC] = useState(idBeginer?.option_c)
+    const [optionD, setOptionD] = useState(idBeginer?.option_d)
+    const [answer, setAnswer] = useState(idBeginer?.answer)
 
     const handlePopupPostTopic = () => {
         isToggle(!idBeginer)
     }
     const handleQuestion = async (e: FormEvent<HTMLElement>) => {
         e.preventDefault();
-        const idQuestion = questionItem?.id
+        const idQuestion = idBeginer?.id
         if (!question || !optionA || !optionB || !optionC || !optionD || !answer)
             return showToastErrEmpty()
         const updateQuestion = {
@@ -95,7 +94,7 @@ const FromEdit: React.FC<IPropPopup> = ({ isToggle, idBeginer }) => {
                     </div>
                     <div className="wp-input ">
                         <label htmlFor="lever" className='form-label-select'>Câu trả lời đúng là:<br />
-                            <select name='lever' id='lever' className='form-select' defaultValue={questionItem?.answer} onChange={(e) => setAnswer(e.target.value)} >
+                            <select name='lever' id='lever' className='form-select' defaultValue={idBeginer?.answer} onChange={(e) => setAnswer(e.target.value)} >
                                 <option>--Câu trả lời đúng--</option>
                                 <option value="A">A</option>
                                 <option value="B">B</option>

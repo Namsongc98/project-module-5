@@ -18,12 +18,12 @@ export class TopicController {
         return await this.serviteToppic.selectBeginner()
     }
 
-    @Get("getintermediate/")
+    @Get("getintermediate")
     async getIntermediate() {
         return await this.serviteToppic.selectIntermediate()
     }
 
-    @Get("getadvances/")
+    @Get("getadvances")
     async getAdvanced() {
         return await this.serviteToppic.selectAdvanced()
     }
@@ -31,6 +31,13 @@ export class TopicController {
     @Get("getalltopic")
     async getAll() {
         return await this.serviteToppic.selectAll()
+    }
+    
+    @Get("getonetopic/:id")
+    async getOne(@Param("id") id: number){
+        const result =  await this.serviteToppic.getOne(id)
+        console.log(result);
+        return result
     }
 
     @Put("puttopic")

@@ -72,6 +72,18 @@ export class TopicService {
         }
     }
 
+    async getOne(id: number): Promise<Topic> {
+        try {
+            return await this.topicRepository.findOne(
+                {
+                    where: { id }
+                }
+            )
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
     // Updeate chủ đề
     async updateTopic(updateTopic: topicType): Promise<topicType> {
         try {
@@ -116,6 +128,6 @@ export class TopicService {
         }
     }
 
-   
+
 
 }

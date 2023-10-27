@@ -69,13 +69,13 @@ const Intermediate: React.FC<Popup> = (popup) => {
       </div>
       <div className="mt-5 flex flex-col gap-2">
         {dataIntermediate?.map((intermediate) => (
-          <div key={intermediate.id} className="flex bg-white items-center justify-between p-4 wp-card-topic border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]">
-            <div className="">
-              <img src={intermediate.image} alt="" className='w-16 h-16' />
+          <div key={intermediate.id} className="flex gap-1 bg-white items-center justify-between p-4 wp-card-topic border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]">
+            <div className="w-16 h-16  ">
+              <img src={intermediate.image} alt="" className='w-16 h-16 rounded-full' />
             </div>
-            <div className="">
-              <p className="font-semibold text-xl">{intermediate.name}</p>
-              <p className="font-semibold opacity-60 mt-2">{intermediate.target}</p>
+            <div className="w-40">
+              <p className="font-semibold text-base">{intermediate.name}</p>
+              <p className="font-semibold opacity-60 mt-2 text-sm">{intermediate.target}</p>
             </div>
             <div className="flex flex-col gap-4">
               <div

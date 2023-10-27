@@ -106,7 +106,7 @@ const Register: React.FC = () => {
             </div>
           </div>
           <div className="lg-right-wpEmail ">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Mật khẩu:</label>
             <div className="lg-right-email-wpInput">
               <div className=" wp-icon-input">
                 <RiLockPasswordLine style={{ fontSize: "1.2em" }} />
@@ -124,7 +124,7 @@ const Register: React.FC = () => {
 
           </div>
           <div className="lg-right-wpEmail ">
-            <label htmlFor="confirm_pwd">Password:</label>
+            <label htmlFor="confirm_pwd">Nhập lại Mật khẩu:</label>
             <div className="lg-right-email-wpInput">
               <div className=" wp-icon-input">
                 <RiLockPasswordLine style={{ fontSize: "1.2em" }} />

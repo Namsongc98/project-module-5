@@ -7,7 +7,7 @@ export class EvaluateController {
         private serviceEvaluate: EvaluateService,
     ) { }
 
-    @Post("/postevaluate")
+    @Post('/postevaluate')
     async postEvaluate(@Body() newEvaluate: EvaluateType): Promise<void> {
         await this.serviceEvaluate.postEvaluate(newEvaluate)
     }
@@ -18,7 +18,7 @@ export class EvaluateController {
     }
 
     @Get("count")
-    async count():Promise<any>{
+    async count(): Promise<any> {
         return this.serviceEvaluate.countEvaluate()
     }
 }

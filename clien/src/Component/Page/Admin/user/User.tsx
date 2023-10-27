@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AiFillLock, AiFillProfile, AiFillStar, AiFillUnlock } from 'react-icons/ai'
 import "./User.scss"
-import { axiosPrivate } from '../../../../config/ConfigApi'
+import { axiosPrivate, axiosPublic } from '../../../../config/ConfigApi'
 import { IDataUser } from '../../../../type/UserModule'
 import 'tippy.js/dist/tippy.css';
 import { BsSearch } from 'react-icons/bs'
@@ -19,9 +19,7 @@ const ManagerUser: React.FC = () => {
   const [countProfile, setCountProfile] = useState<number>()
   const [countEvaluate, setCountEvaluate] = useState<number>()
   const navigate = useNavigate()
-
   const deBounce: string = useDebounce(email, 500)
-
   const limit = 5
   const pageCount = Math.ceil(countUser! / limit)
   const paginationUser = async () => {
@@ -38,7 +36,6 @@ const ManagerUser: React.FC = () => {
   }, [deBounce])
 
   const handlePagination = async ({ selected }: any) => {
-
     const skip = selected * limit
     try {
       const url = `/profile/users?page=${skip}&limit=${limit}&email=${encodeURIComponent(email)}`
@@ -65,7 +62,7 @@ const ManagerUser: React.FC = () => {
     }
   }
 
-  
+
 
   // đếm người dùng 
   const handleCountUser = async () => {

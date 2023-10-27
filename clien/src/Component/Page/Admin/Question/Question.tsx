@@ -105,14 +105,14 @@ const Question: React.FC = () => {
                 <div className="flex justify-between items-center">
                     <h1 className=" font-semibold text-2xl m-0  text-[#299cd9]">Câu hỏi</h1>
                     <div className="wp-search">
-                        <input type="text" placeholder='Nhập tên' className='input-search'
+                        <input type="text" placeholder='Nhập chủ đề' className='input-search'
                             value={searchTopic}
                             onChange={(e: any) => setSearchTopic(e.target.value)} />
                         <BsSearch className="text-[17px] text-white" />
                     </div>
                 </div>
                 <div className="flex gap-4 mt-5">
-                    <div className="rounded-lg w-1/4 h-24 flex p-4 gap-4 items-center shadow-md hover:shadow-xl bg-green-600" >
+                    <div className="rounded-lg w-1/3 h-24 flex p-4 gap-4 items-center shadow-md hover:shadow-xl bg-green-600" >
                         <div className=" text-white w-16 h-16 rounded-lg flex justify-center items-center">
                             <AiFillQuestionCircle className="text-7xl text-yellow-500" />
                         </div>
@@ -126,13 +126,13 @@ const Question: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-5 w-full p-5 bg-white ">
-                    <div className=" wp-table ">
+                <div className="mt-5 w-full p-2 bg-white ">
+                    <div className="wp-table">
                         <table className='w-full detail-table'>
                             <thead className='detail-thead'>
                                 <tr className=' '>
                                     <th className='w-10'>
-                                        .#
+                                        id
                                     </th>
                                     <th>
                                         Chủ đề
@@ -152,11 +152,11 @@ const Question: React.FC = () => {
                                     <th>
                                         Câu D
                                     </th>
-                                    <th className='w-[150px]'>
+                                    <th className='w-[70px]'>
                                         Đáp án đúng
                                     </th>
-                                    <th className='w-[150px]'>
-                                        Ative
+                                    <th className='w-[50px]'>
+                                        Xóa
                                     </th>
                                 </tr>
                             </thead>

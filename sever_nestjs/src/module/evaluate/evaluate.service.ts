@@ -60,5 +60,5 @@ export class EvaluateService {
             .getCount()
         return result
 
-    } 
+    }
 }

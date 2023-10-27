@@ -381,7 +381,7 @@ const ProfileUser: React.FC = () => {
                 <div className="password">
                     <label htmlFor="password">Mật khẩu cũ:</label>
                     <div className="wp-input">
-                        <input type="text" className="" id="password" name="confirmPassword"
+                        <input type="password" className="" id="password" name="confirmPassword"
                             value={password} onChange={(e) => setPassword(e.target.value)} />
 
                     </div>
@@ -389,13 +389,13 @@ const ProfileUser: React.FC = () => {
                 <div className="password">
                     <label htmlFor="newPassword">Mật khẩu mới:</label>
                     <div className="wp-input">
-                        <input type="text" className="" id="newPassword" name="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                        <input type="password" className="" id="newPassword" name="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
                     </div>
                 </div>
                 <div className="password">
                     <label htmlFor="confirmPassword">Xác nhận lại:</label>
                     <div className="wp-input">
-                        <input type="text" className="" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                        <input type="password" className="" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
 
                     </div>
                 </div>

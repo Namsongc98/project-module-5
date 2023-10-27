@@ -3,15 +3,11 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Public, Private, PrivateUser } from './Router'
 import DefaultPublic from './Component/Layout'
 import Admin from './Component/Page/Admin'
-
 import React, { Fragment } from 'react'
 import { PrivateRouter } from './Router/PrivateRouter'
 import NotFound from './Component/Page/NotFond/NotFound'
-import Topic from './Component/Page/Topic/Topic'
-import Learn from './Component/Page/Topic/Learn/Learn'
 import PrivateUserRouter from './Router/PrivateUser'
 import DefauLayoutUser from './Component/Layout/LayoutUser/DefauLayoutUser'
-import { Layout } from 'antd'
 const App: React.FC = () => {
   return (
     <>

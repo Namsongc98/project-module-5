@@ -29,7 +29,6 @@ const LeftLearn: React.FC<propData> = ({ dataStatusTopic, setpopup, setImgTopic,
         }
         navigater(`/topic/${name}/learn`)
     }
-
     const beginner = dataStatusTopic?.filter((topic: TopicData) => topic.lever === "Sơ cấp")
     const intermediate = dataStatusTopic?.filter((topic: TopicData) => topic.lever === "Trung cấp")
     const advanced = dataStatusTopic?.filter((topic: TopicData) => topic.lever === "Cao cấp")
@@ -95,10 +94,7 @@ const LeftLearn: React.FC<propData> = ({ dataStatusTopic, setpopup, setImgTopic,
                         </div>
                     </div>
                 ))}
-
             </div>
-
-
         </div>
     )
 }

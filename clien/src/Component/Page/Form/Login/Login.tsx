@@ -42,7 +42,7 @@ const Login: React.FC = () => {
     try {
       const response = await axiosPublic.post("/auth/login", newUser);
       const token = response.data.access_token
-      document.cookie = `token=${token}`
+      localStorage.setItem("token",token)
       dispatch(setLogin(response.data))
       dispatch(setProfile(response.data))
       navigate("/")

@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     dataProfile: {}
 }
-
 const SliceProfile = createSlice({
     name: "Profile",
     initialState,

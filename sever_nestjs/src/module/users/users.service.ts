@@ -50,7 +50,7 @@ export class UsersService {
       this.userRepository.save(userDetail);
       return {
         status: 201,
-        message: 'post thành công ',
+        message: 'tao thành công ',
       };
     } catch (error) {
       throw new NotFoundException(error);

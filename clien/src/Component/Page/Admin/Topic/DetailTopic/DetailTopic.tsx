@@ -3,7 +3,7 @@ import FormQuestion from './FormQuestion'
 import "./Detail.scss"
 import { AiFillDelete, AiFillEdit, AiFillQuestionCircle } from 'react-icons/ai'
 import { useNavigate, useParams } from 'react-router-dom'
-import {axiosPrivate} from '../../../../../config/ConfigApi'
+import { axiosPrivate } from '../../../../../config/ConfigApi'
 import { ToastContainer, toast } from 'react-toastify'
 import FromEdit from './FromEdit'
 import { IQuestion } from '../../../../../type/Topic'
@@ -14,6 +14,7 @@ import { BiArrowBack } from 'react-icons/bi'
 const DetailTopic: React.FC = () => {
   const [popup, setPopup] = useState<boolean>(false)
   const [dataQuestion, setDataQuestion] = useState<IQuestion[]>([])
+  const [question, setQuestion] = useState<IQuestion>()
   const [topic, setTopic] = useState<any>()
   const [countQuestion, setCountQuestion] = useState<any>()
 
@@ -54,8 +55,9 @@ const DetailTopic: React.FC = () => {
     });
   };
 
-  const handleEdit = (idTopic: number) => {
-    setidTonggle(idTopic)
+  const handleEdit = (question: IQuestion) => {
+    setQuestion(question);
+     setidTonggle(question.id)
   }
   return (
     <div className='w-full'>
@@ -102,7 +104,7 @@ const DetailTopic: React.FC = () => {
             <thead className='detail-thead'>
               <tr className=' '>
                 <th className='w-10'>
-                  stt
+                  id
                 </th>
                 <th>
                   Câu hỏi
@@ -119,10 +121,10 @@ const DetailTopic: React.FC = () => {
                 <th>
                   Câu D
                 </th>
-                <th className='w-[150px]'>
+                <th className='w-[100px]'>
                   Đáp án đúng
                 </th>
-                <th className='w-[150px]'>
+                <th className=''>
                   Active
                 </th>
               </tr>
@@ -151,9 +153,9 @@ const DetailTopic: React.FC = () => {
                   <td>
                     {question.answer}
                   </td>
-                  <td className='flex gap-4'>
+                  <td className='flex gap-4 '>
                     <div className="text-blue-400 hover:text-blue-600 ">
-                      <AiFillEdit style={{ fontSize: "20px" }} onClick={() => handleEdit(question.id!)} />
+                      <AiFillEdit style={{ fontSize: "20px" }} onClick={() => handleEdit(question)} />
                     </div>
                     <div className="text-red-400 hover:text-red-600">
                       <AiFillDelete style={{ fontSize: "20px" }} onClick={() => handleDelete(question.id!)} />
@@ -164,10 +166,10 @@ const DetailTopic: React.FC = () => {
             </tbody>
           </table>
           <div className="wp-btn-back">
-            <button onClick={()=>navigate(-1)} className="btn-back"><BiArrowBack/> Trở lại</button>
+            <button onClick={() => navigate(-1)} className="btn-back"><BiArrowBack /> Trở lại</button>
           </div>
           {idTonggle &&
-            <FromEdit isToggle={setidTonggle} idBeginer={idTonggle} />
+            <FromEdit isToggle={setidTonggle} idBeginer={question} />
           }
         </div>
       </div>

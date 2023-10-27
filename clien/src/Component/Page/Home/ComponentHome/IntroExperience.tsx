@@ -19,7 +19,7 @@ const IntroExperience:React.FC = () => {
         <p className=" opacity-100  text-slate-500 leading-7 font-medium text-lg">Dino English: Ứng dụng Học tiếng Anh miễn phí cho tất cả mọi người</p>
       </div>
       <div className="flex flex-col gap-5 ">
-        <div className="px-6 py-3 flex rounded-[6px] justify-center gap-5 shadow-[0px_4px_10px_rgba(0,0,0,0.12)] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.18)] duration-75 bg-white">
+        <div className="px-6 py-3 flex rounded-[6px] justify-start gap-5 shadow-[0px_4px_10px_rgba(0,0,0,0.12)] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.18)] duration-75 bg-white">
           <div className="w-16 h-16 shrink-0 flex self-center ">
             <img src={imgBook} alt="" className="w-[60px] h-[60px]" />
           </div>
@@ -28,7 +28,7 @@ const IntroExperience:React.FC = () => {
             <p className="opacity-100 text-slate-500 leading-7 font-medium text-base">Mỗi chủ đề (bài học) được thiết kế khoa học, hấp dẫn, lôi cuốn.</p>
           </div>
         </div>
-        <div className="px-6 py-3 flex rounded-[6px] justify-center gap-5 shadow-[0px_4px_10px_rgba(0,0,0,0.12)] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.18)] duration-75 bg-white">
+        <div className="px-6 py-3 flex rounded-[6px] justify-start gap-5 shadow-[0px_4px_10px_rgba(0,0,0,0.12)] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.18)] duration-75 bg-white">
           <div className="w-16 h-16 shrink-0 flex self-center ">
             <img src={imgGame} alt="" className="w-[60px] h-[60px]" />
           </div>
@@ -37,7 +37,7 @@ const IntroExperience:React.FC = () => {
             <p className="opacity-100 text-slate-500 leading-7 font-medium text-base">Game từ vựng tiếng Anh thú vị giúp việc học tiếng Anh trở nên dễ dàng hấp dẫn hơn.</p>
           </div>
         </div>
-        <div className="px-6 py-3 flex rounded-[6px] justify-center gap-5 shadow-[0px_4px_10px_rgba(0,0,0,0.12)] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.18)] duration-75 bg-white">
+        <div className="px-6 py-3 flex rounded-[6px] justify-start gap-5 shadow-[0px_4px_10px_rgba(0,0,0,0.12)] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.18)] duration-75 bg-white">
           <div className="w-16 h-16 shrink-0 flex self-center ">
             <img src={imgSkill} alt="" className="w-[60px] h-[60px]" />
           </div>
@@ -46,7 +46,7 @@ const IntroExperience:React.FC = () => {
             <p className="opacity-100 text-slate-500 leading-7 font-medium text-base">Phát triển toàn diện 4 kỹ năng: luyện nghe tiếng Anh, nói tiếng Anh, đọc tiếng Anh và viết tiếng Anh.</p>
           </div>
         </div>
-        <div className="px-6 py-3 flex rounded-[6px] justify-center gap-5 shadow-[0px_4px_10px_rgba(0,0,0,0.12)] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.18)] duration-75 bg-white">
+        <div className="px-6 py-3 flex rounded-[6px] justify-start gap-5 shadow-[0px_4px_10px_rgba(0,0,0,0.12)] hover:shadow-[0px_4px_10px_rgba(0,0,0,0.18)] duration-75 bg-white">
           <div className="w-16 h-16 shrink-0 flex self-center ">
             <img src={imgLever} alt="" className="w-[60px] h-[60px]" />
           </div>

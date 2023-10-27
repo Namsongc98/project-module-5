@@ -7,11 +7,11 @@ import Profile from '../Reducer/Slice/Profile';
 
 
 const rootReducer = combineReducers({
-    UserSlice:UserSlice,
-    Evaluate:Evaluate,
-    Topic:Topic,
-    Question:Question,
-    Profile:Profile
+    UserSlice,
+    Evaluate,
+    Topic,
+    Question,
+    Profile
 });
 
 export default rootReducer;

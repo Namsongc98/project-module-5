@@ -17,8 +17,7 @@ type Popup = {
 const Beginner: React.FC<Popup> = ({ popup }) => {
   const [dataBeginer, setDataBeginer] = useState<DataBeginner>([]);
   const [idTonggle, setidTonggle] = useState<number | undefined>()
-  const currenUser = useSelector(getLogin)
-  const idUser = currenUser.id;
+  const [topic, setTopic] = useState()
 
   const navigate = useNavigate()
 
@@ -56,7 +55,8 @@ const Beginner: React.FC<Popup> = ({ popup }) => {
 
 
 
-  const handleEdit = (idTopic: number) => {
+  const handleEdit = (idTopic: number, topic: any) => {
+    setTopic(topic)
     setidTonggle(idTopic)
   }
 
@@ -79,18 +79,18 @@ const Beginner: React.FC<Popup> = ({ popup }) => {
             key={id}
             className="flex  bg-white items-center justify-between p-4  border-solid border-slate-200 hover:scale-[101%] hover:shadow-lg rounded-lg border-[1px]"
           >
-            <div className="">
+            <div className="w-16 h-16 ">
               <img
                 src={itemBeginner.image}
                 alt=""
-                className="w-16 h-16"
+                className="w-16 h-16 rounded-full"
               />
             </div>
-            <div className="">
-              <p className="font-semibold text-xl">
+            <div className="w-40">
+              <p className="font-semibold text-base">
                 {itemBeginner.name}
               </p>
-              <p className="font-semibold opacity-60 mt-2">
+              <p className="font-semibold opacity-60 mt-2 text-base">
                 {itemBeginner.target}
               </p>
             </div>
@@ -103,7 +103,7 @@ const Beginner: React.FC<Popup> = ({ popup }) => {
               </div>
               <div
                 className="text-blue-400 hover:text-blue-600"
-                onClick={() => handleEdit(itemBeginner.id!)}
+                onClick={() => handleEdit(itemBeginner.id!, itemBeginner)}
               >
                 <AiFillEdit />
               </div>
@@ -119,7 +119,7 @@ const Beginner: React.FC<Popup> = ({ popup }) => {
         ))}
       </div>
       {idTonggle &&
-        <EditTopic isToggle={setidTonggle} idBeginer={idTonggle!} />
+        <EditTopic isToggle={setidTonggle} idBeginer={topic!} />
       }
     </div>
   )

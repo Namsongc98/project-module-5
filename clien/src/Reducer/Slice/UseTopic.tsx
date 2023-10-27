@@ -11,8 +11,6 @@ const initialState = {
   error: null,
   loading: false,
 } as ITopicState
-
-
 const useSliceTopic = createSlice({
   name: "topic",
   initialState,
@@ -20,15 +18,6 @@ const useSliceTopic = createSlice({
     setAllTopic: ((state, action) => {
       state.useTopic = action.payload
     }),
-    // setTopicBeginner: ((state, action) => {
-    //   state.useTopicBeginner = action.payload
-    // }),
-    // setTopicIntermediate: ((state, action) => {
-    //   state.useTopicIntermediate = action.payload
-    // }),
-    // setTopicAdvanced: ((state, action) => {
-    //   state.useTopicAdvanced = action.payload
-    // }),
   },
 
 })

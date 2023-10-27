@@ -31,10 +31,8 @@ const Evaluate = createSlice({
                 state.error = null;
                 state.loading = true;
             })
-           
-          
     }
 })
 
-export const  {setEvaluateApi}= Evaluate.actions
+export const { setEvaluateApi } = Evaluate.actions
 export default Evaluate.reducer
